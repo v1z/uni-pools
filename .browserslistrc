@@ -1,0 +1,23 @@
+#general
+> 1% in RU
+last 4 versions
+
+# desktop
+Chrome >= 49
+Firefox >= 52
+Edge >= 17
+Safari >= 10
+Explorer >= 11
+Opera >= 53
+OperaMobile >= 47
+
+# mobile
+iOS >= 10
+
+# exceptions
+not Explorer <= 10
+not ExplorerMobile <= 10
+not OperaMini all
+not last 4 OperaMobile versions
+not last 4 Baidu versions
+not BlackBerry <= 9
