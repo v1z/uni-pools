@@ -1,0 +1,13 @@
+import React from 'react';
+import cn from 'classnames';
+import s from './{{pascalCase name}}.css';
+
+type Props = {
+  className?: string;
+};
+
+export const {{pascalCase name}}: React.FC<Props> = ({ className }) => (
+  <div className={cn(s.root, className)}>
+    {/* component content */}
+  </div>
+);

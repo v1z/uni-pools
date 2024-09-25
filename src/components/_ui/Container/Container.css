@@ -1,0 +1,21 @@
+.root {
+  margin-right: auto;
+  margin-left: auto;
+  padding-right: var(--grid-padding);
+  padding-left: var(--grid-padding);
+  width: 100%;
+  max-width: var(--grid-content-fluid);
+
+  @media (--tablet-large) {
+    width: var(--grid-content-tablet);
+    max-width: none;
+  }
+
+  @media (--desktop) {
+    width: var(--grid-content-desktop);
+  }
+
+  @media (--desktop-large) {
+    width: var(--grid-content-desktop-large);
+  }
+}

@@ -1,0 +1,22 @@
+import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { someAction } from '../../redux/actions';
+import cn from 'classnames';
+import s from './{{pascalCase name}}.css';
+
+type Props = {
+  className?: string;
+};
+
+export const {{pascalCase name}}: React.FC<Props> = ({ className }) => {
+  // const stateValue = useSelector(state => state.value);
+  // const dispatchAction = useDispatch();
+
+  // const handleClick = () => dispatchAction(someAction()); // pass any payload as argument for action
+
+  return (
+    <div className={cn(s.root, className)}>
+      {/* component content */}
+    </div>
+  )
+};

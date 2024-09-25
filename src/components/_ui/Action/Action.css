@@ -1,0 +1,105 @@
+.link-transition {
+  transition: color var(--duration) var(--timing);
+}
+
+.link-default {
+  composes: link-transition;
+  color: #3d7ab6;
+
+  &:hover {
+    color: #336699;
+  }
+
+  &:active {
+    color: #29527c;
+  }
+
+  /* keyboard user outline */
+  /* stylelint-disable */
+  :global(body.user-is-tabbing) &:focus {
+    color: #3d7ab6;
+    background-color: rgba(255, 221, 45, .32);
+    outline: none;
+  }
+  /* stylelint-enable */
+}
+
+.button {
+  display: inline-block;
+  font: inherit;
+  text-align: center;
+  color: #333333;
+  border-radius: 6px;
+  transition: background-color var(--duration) var(--timing);
+  user-select: none;
+
+  &:disabled {
+    opacity: .3;
+    pointer-events: none;
+  }
+}
+
+.root {
+  &_link {
+    composes: link-default;
+  }
+
+  &_link-faded {
+    composes: link-transition;
+    color: #74a3c7;
+
+    &:hover {
+      color: #95c9f0;
+    }
+
+    &:active {
+      color: #74a3c7;
+    }
+
+    /* keyboard user outline */
+    /* stylelint-disable */
+    :global(body.user-is-tabbing) &:focus {
+      color: #74a3c7;
+      background-color: rgba(255, 255, 255, .2);
+      outline: none;
+    }
+    /* stylelint-enable */
+  }
+
+  &_link-inherit {
+    color: inherit;
+
+    &:hover {
+      color: inherit;
+    }
+  }
+
+  &_button_yellow {
+    composes: button;
+    padding: 10px 25px;
+    background-color: #ffdd2d;
+
+    &:hover {
+      background-color: #ffcd33;
+    }
+
+    &:focus {
+      background-color: #ffdd2d; /* TODO: set keyboard focus */
+    }
+  }
+
+  &_button_ghost {
+    composes: button;
+    padding: 9px 24px;
+    background-color: white;
+    border: 1px solid currentColor;
+
+    &:hover {
+      background-color: rgba(51, 51, 51, .05);
+    }
+
+    &:focus {
+      background-color: white; /* TODO: set keyboard focus */
+    }
+  }
+}

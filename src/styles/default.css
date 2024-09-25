@@ -1,0 +1,33 @@
+@import './normalize.css';
+@import './variables.css';
+
+/* stylelint-disable selector-max-type, selector-max-universal */
+
+*,
+*::after,
+*::before {
+  box-sizing: inherit;
+}
+
+html {
+  box-sizing: border-box;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+body {
+  position: relative;
+  margin: 0;
+  font-family: var(--font-signika);
+  font-size: 16px;
+  line-height: 1.4;
+  font-weight: 400;
+  color: var(--color-text);
+
+  @media (--tablet) {
+    font-size: 18px;
+  }
+}
