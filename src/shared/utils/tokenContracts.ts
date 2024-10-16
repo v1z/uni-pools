@@ -20,6 +20,10 @@ export const CONTRACTS: Record<SupportedChainsType, Partial<TokenType>> = {
     USDT: {
       contract: '0xfd086bc7cd5c481dcc9c85ebe478a1c0b69fcbb9',
       decimals: 6,
+    },
+    WBTC: {
+      contract: '0x2f2a2543b76a4166549f7aab2e75bef0aefc5b0f',
+      decimals: 8
     }
   },
   Base: {

@@ -13,6 +13,7 @@ export const getTokenSymbol = (chain: SupportedChainsType, contract: string): Su
   const chainMap = CONTRACTS[chain]
   const entries = Object.entries(chainMap)
 
+  // type cast cuz it always called after support check
   return entries.find(([_, data]) => data.contract === contract)?.[0] as SupportedTokensType
 }
 
@@ -21,5 +22,6 @@ export const getTokenDecimal = (chain: SupportedChainsType, contract: string): n
   const chainMap = CONTRACTS[chain]
   const entries = Object.entries(chainMap)
 
+  // type cast cuz it always called after support check
   return entries.find(([_, data]) => data.contract === contract)?.[1].decimals as number
 }

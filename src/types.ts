@@ -1,6 +1,6 @@
 export type SupportedChainsType = 'Base' | 'Arbitrum'
 
-export type SupportedTokensType = 'ETH' | 'USDC' | 'USDT'
+export type SupportedTokensType = 'ETH' | 'USDC' | 'USDT' | 'WBTC'
 
 export type PriceRangeType = {
   lower: number

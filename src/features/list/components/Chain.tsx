@@ -18,7 +18,7 @@ export const Chain = (props: ChainPropsType) => {
   const poolNames = Object.keys(pools)
 
   return (
-    <li>
+    <li className={s.chainItem}>
       <h4 className={s.chainTitle}>{name}</h4>
 
       <ul>
