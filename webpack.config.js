@@ -5,6 +5,8 @@ const TerserJSPlugin = require('terser-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const dotenv = require('dotenv')
+const { DefinePlugin } = require('webpack')
 
 const isDev = process.env.NODE_ENV !== 'production';
 
@@ -40,7 +42,7 @@ module.exports = {
             options: {
               importLoaders: 1,
               modules: {
-                localIdentName: isDev ? '[name]__[local]' : '[hash:base64:5]',
+                localIdentName: isDev ? '[name]__[local]__[hash:base64:5]' : '[hash:base64:5]',
               },
             },
           },
@@ -96,10 +98,13 @@ module.exports = {
     ],
   },
   devServer: {
-    contentBase: path.join(__dirname, 'dist'),
-    compress: true,
+    static: {
+      directory: path.join(__dirname, 'dist'),
+    },
     port: 3000,
-    stats: 'minimal',
+    devMiddleware: {
+      stats: 'minimal',
+    },
   },
   plugins: [
     new CleanWebpackPlugin(),
@@ -108,6 +113,9 @@ module.exports = {
       template: './src/index.html',
       filename: './index.html',
     }),
-    new CopyWebpackPlugin([{ from: 'public' }]),
+    new CopyWebpackPlugin({ patterns: [{ from: 'public' }] }),
+    new DefinePlugin({
+      'process.env': JSON.stringify(dotenv.config().parsed)
+    })
   ],
 };

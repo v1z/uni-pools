@@ -27,14 +27,12 @@ module.exports = {
     'jest-formatting',
     'codeceptjs',
     'simple-import-sort',
-    'compat',
   ],
   extends: [
     'plugin:react/recommended',
     'plugin:@typescript-eslint/recommended',
     'plugin:jest/style',
     'plugin:jest/recommended',
-    'plugin:compat/recommended',
   ],
   rules: {
     // quality rules

@@ -9,7 +9,7 @@
 
 :root {
   --font-fallback: 'Segoe UI', '-apple-system', 'Roboto', 'Helvetica', 'Arial', sans-serif;
-  --font-signika: 'Signika', var(--font-fallback);
+  --font-roboto: 'Roboto', var(--font-fallback);
 
   --duration: .2s;
   --timing: ease-in-out;
@@ -22,4 +22,7 @@
   --grid-content-tablet: calc(864px + 2 * var(--grid-padding));
   --grid-content-desktop: calc(1104px + 2 * var(--grid-padding));
   --grid-content-desktop-large: calc(1200px + 2 * var(--grid-padding));
+
+  /* pallete */
+  --color-bg-1: #e1f1fd;
 }

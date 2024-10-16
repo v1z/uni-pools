@@ -21,7 +21,8 @@ img {
 body {
   position: relative;
   margin: 0;
-  font-family: var(--font-signika);
+  overflow-y: scroll;
+  font-family: var(--font-roboto);
   font-size: 16px;
   line-height: 1.4;
   font-weight: 400;
@@ -30,4 +31,19 @@ body {
   @media (--tablet) {
     font-size: 18px;
   }
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
 }

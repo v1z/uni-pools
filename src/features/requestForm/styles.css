@@ -1,0 +1,40 @@
+:root {
+  --form-width: 440px;
+}
+
+.root {
+  padding-top: 48px;
+  padding-bottom: 48px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.form {
+  width: var(--form-width);
+}
+
+.formTitle {
+  margin-bottom: 16px;
+  font-size: 32px;
+}
+
+.notification {
+  padding: 24px;
+  display: flex;
+  box-sizing: border-box;
+  width: calc(100% - var(--form-width) - 128px);
+  flex-direction: column;
+  border: 1px solid black;
+  border-radius: 48px;
+}
+
+.notificationTitle {
+  margin-bottom: 16px;
+  font-size: 32px;
+}
+
+.notificationSubtitle {
+  margin-bottom: 12px;
+  font-size: 18px;
+}
