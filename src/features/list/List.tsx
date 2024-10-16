@@ -17,13 +17,7 @@ export const List = () => {
     <section>
       <ul>
         {chains.map((chain: SupportedChainsType) => {
-          return (
-            <Chain
-              name={chain}
-              pools={sortedPositions[chain]}
-              key={chain}
-            />
-          )
+          return <Chain name={chain} pools={sortedPositions[chain]} key={chain} />
         })}
       </ul>
     </section>

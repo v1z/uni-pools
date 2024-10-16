@@ -1,7 +1,16 @@
-import { getTokenSymbol } from '../../../shared/utils'
+import { getTokenSymbol, isTokenSupported } from '../../../shared/utils'
 import type { PositionType, SupportedChainsType } from '../../../types'
 
 export type SortedByPoolType = Record<string, PositionType[]>
+
+// TODO: tests
+export const filterBySupportedTokens = (positions: PositionType[]): PositionType[] => {
+  return positions.filter(item => {
+    const {chain, token0, token1} = item
+
+    return isTokenSupported(chain, token0) && isTokenSupported(chain, token1)
+  })
+}
 
 export const sortByPool = (positions: PositionType[]): SortedByPoolType => {
   return positions.reduce((acc, item) => {
@@ -39,7 +48,9 @@ export const sortByChain = (positions: PositionType[]): SortedByChainPositionsTy
 export type SortedPositionsType = Record<SupportedChainsType, SortedByPoolType>
 
 export const sortPositions = (positions: PositionType[]): SortedPositionsType => {
-  const sortedByRange = sortByRange(positions)
+  const filteredPositions = filterBySupportedTokens(positions)
+
+  const sortedByRange = sortByRange(filteredPositions)
   const sortedByChain = sortByChain(sortedByRange)
 
   const chains = Object.keys(sortedByChain) as SupportedChainsType[]

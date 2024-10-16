@@ -1,7 +1,4 @@
 import React from 'react'
-import cn from 'classnames'
-
-import Typography from '@mui/material/Typography'
 
 import { SupportedChainsType } from '../../../types'
 import type { SortedByPoolType } from '../types'
@@ -27,14 +24,8 @@ export const Chain = (props: ChainPropsType) => {
       <ul>
         {poolNames.map((poolName) => {
           return (
-            <li
-              key={poolName}
-              className={s.pool}
-            >
-              <Pool
-                name={poolName}
-                positions={pools[poolName]}
-              />
+            <li key={poolName} className={s.pool}>
+              <Pool name={poolName} positions={pools[poolName]} />
             </li>
           )
         })}

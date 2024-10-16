@@ -28,7 +28,7 @@ const CONTRACT_ABI = [
 const SUPPORTED_CHAINS: SupportedChainsType[] = ['Arbitrum', 'Base']
 
 export const useRequestPositions = async (userAddress: string): Promise<RawPositionType[]> => {
-  // return mockData
+  return mockData
   const positions: RawPositionType[] = []
 
   for (const chain of SUPPORTED_CHAINS) {

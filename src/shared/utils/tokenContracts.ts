@@ -1,14 +1,35 @@
 import type { SupportedChainsType, SupportedTokensType } from '../../types'
 
-export const CONTRACTS: Record<SupportedChainsType, Record<SupportedTokensType, string>> = {
+type TokenType = {
+  [key in SupportedTokensType]: {
+    'contract': string
+    'decimals': number
+  }
+}
+
+export const CONTRACTS: Record<SupportedChainsType, Partial<TokenType>> = {
   Arbitrum: {
-    ETH: '0x82aF49447D8a07e3bd95BD0d56f35241523fBab1',
-    USDC: '0xaf88d065e77c8cC2239327C5EDb3A432268e5831',
-    USDT: '0xFd086bC7CD5C481DCC9C85ebE478A1C0b69FCbb9',
+    'ETH': {
+      contract: '0x82af49447d8a07e3bd95bd0d56f35241523fbab1',
+      decimals: 18,
+    },
+    USDC: {
+      contract: '0xaf88d065e77c8cc2239327c5edb3a432268e5831',
+      decimals: 6,
+    },
+    USDT: {
+      contract: '0xfd086bc7cd5c481dcc9c85ebe478a1c0b69fcbb9',
+      decimals: 6,
+    }
   },
   Base: {
-    ETH: '0x4200000000000000000000000000000000000006',
-    USDC: '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913',
-    USDT: '',
+    ETH: {
+      contract: '0x4200000000000000000000000000000000000006',
+      decimals: 18,
+    },
+    USDC: {
+      contract: '0x833589fcd6edb6e08f4c7c32d4f71b54bda02913',
+      decimals: 6,
+    }
   },
 }

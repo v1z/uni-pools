@@ -9,20 +9,14 @@ export const Item = (props: PositionType) => {
 
   return (
     <div className={s.position}>
-      <a
-        href={url}
-        target='_blank'
-        className={s.positionLink}
-        rel='noreferrer'
-      >
+      <a href={url} target="_blank" className={s.positionLink} rel="noreferrer">
         {url}
       </a>
 
       <div className={s.content}>
         <span>
           {range.lower}
-          {' '}
-          -
+          {' - '}
           {range.upper}
         </span>
 
@@ -37,9 +31,9 @@ export const Item = (props: PositionType) => {
           </>
         )}
 
-        <span>{tokens0}</span>
+        {/* <span>{tokens0}</span>
         <div className={s.separator} />
-        <span>{tokens1}</span>
+        <span>{tokens1}</span> */}
       </div>
     </div>
   )
