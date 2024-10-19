@@ -8,7 +8,6 @@
   margin-top: 0;
   margin-bottom: 12px;
   font-size: 32px;
-  font-weight: 700;
 }
 
 .pool {
@@ -19,7 +18,7 @@
 .poolTitle {
   padding: 12px;
   font-size: 18px;
-  background-color: var(--color-bg-1);
+  background-color: #fff;
 }
 
 .position {
