@@ -3,37 +3,41 @@ import React from 'react'
 import type { PositionType } from '../../../types'
 
 import s from '../styles.css'
+import LinkIcon from '../icons/link.svg'
 
 export const Item = (props: PositionType) => {
   const { url, range, liquidity, tokens0, tokens1 } = props
 
   return (
     <div className={s.position}>
-      <a href={url} target="_blank" className={s.positionLink} rel="noreferrer">
+      <a href={url} target="_blank" className={s.actionControl} rel="noreferrer">
         {url}
+        <LinkIcon className={s.actionIcon} />
       </a>
 
       <div className={s.content}>
-        <span>
+        <span className={s.part}>
+          {`Range: `}
           {range.lower}
           {' - '}
           {range.upper}
         </span>
 
         {liquidity !== 0 && (
-          <>
-            <div className={s.separator} />
-            <span>
-              liq:
-              {liquidity}
-            </span>
-            <div className={s.separator} />
-          </>
+          <span className={s.part}>
+            {`Liquidity: `}
+            {liquidity}
+          </span>
         )}
 
-        {/* <span>{tokens0}</span>
-        <div className={s.separator} />
-        <span>{tokens1}</span> */}
+        {/* {(tokens0 || tokens1) && (
+          <span className={s.part}>
+            {`Fees: `}
+            {tokens0}
+            {' - '}
+            {tokens1}
+          </span>
+        )} */}
       </div>
     </div>
   )

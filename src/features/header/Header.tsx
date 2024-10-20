@@ -25,13 +25,10 @@ export const Header = () => {
         <ul className={s.wrapper}>
           {Object.entries(prices).map((pair) => {
             const [token, tokenPrice] = pair
-            const priceText = tokenPrice ? `${tokenPrice}$` : NO_PRICE_TEXT
+            const priceText = tokenPrice ? `$${tokenPrice}` : NO_PRICE_TEXT
 
             return (
-              <li
-                className={s.item}
-                key={token}
-              >
+              <li className={s.item} key={token}>
                 <span className={s.tokenName}>{`${token}:`}</span>
                 <span>{priceText}</span>
               </li>

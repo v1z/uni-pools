@@ -45,41 +45,46 @@ export const RequestForm = () => {
   return (
     <section className={s.root}>
       <form className={s.form}>
-        <h4 className={s.formTitle}>Find Uniswap pools</h4>
+        <h4 className={s.title}>WHY?</h4>
 
-        <TextField
-          label='Address'
-          variant='outlined'
-          size='small'
-          onChange={handleInputChange}
-          sx={{
-            marginBottom: '16px',
-            flexGrow: 1,
-            width: '100%',
-            maxWidth: '440px',
-          }}
-          disabled={isLoading}
-        />
+        <p className={s.subtitle}>
+          Because default Uniswap UX sucks and DeBank doesn't show the range of the positions
+        </p>
 
-        <Button
-          variant='contained'
-          type='button'
-          size='medium'
-          onClick={handleSubmit}
-          sx={{
-            width: '100px',
-          }}
-          disabled={isLoading}
-        >
-          Find
-        </Button>
+        <div className={s.inputWrapper}>
+          <TextField
+            label="Address"
+            variant="outlined"
+            size="small"
+            onChange={handleInputChange}
+            sx={{
+              marginRight: '16px',
+              flexGrow: 1,
+              width: '100%',
+              maxWidth: '440px',
+            }}
+            disabled={isLoading}
+          />
+
+          <Button
+            variant="contained"
+            type="button"
+            size="medium"
+            onClick={handleSubmit}
+            sx={{
+              width: '100px',
+            }}
+            disabled={isLoading}
+          >
+            Find
+          </Button>
+        </div>
+
+        <h4 className={s.title}>Limitations</h4>
+        <p className={s.subtitle}>At the moment you can check only following tokens and chais:</p>
+        <p className={s.subtitle}>Arbitrum - USDT / USDC / ETH / WBTC</p>
+        <p className={s.subtitle}>Base - USDT / ETH</p>
       </form>
-
-      <div className={s.notification}>
-        <h4 className={s.notificationTitle}>Limitations</h4>
-        <span className={s.notificationSubtitle}>Supported chains: Base / Arbitrum</span>
-        <span className={s.notificationSubtitle}>Supported tokens: ETH / USDT / USDC</span>
-      </div>
     </section>
   )
 }

@@ -14,9 +14,11 @@
   --duration: .2s;
   --timing: ease-in-out;
 
-  --color-text: #333333;
 
-  --color-main: #f3f3f3;
+  --color-main: #f8f8f8;
+  --color-secondary: #e8e8e8;
+  --color-tertiary: #898989;
+  --color-text: #2b2b2b;
 
 
   /* grid layout */
