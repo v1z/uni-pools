@@ -15,8 +15,11 @@
 }
 
 .pool {
-  border: 1px solid #333333;
-  margin-top: -1px;
+  border: 2px solid #333333;
+
+  &:not(:first-child) {
+    margin-top: -2px;
+  }
 }
 
 .poolWrapper {
@@ -33,7 +36,7 @@
   border: none;
   width: 40px;
   height: 40px;
-  box-shadow: 1px 0px 0px 0px #333;
+  box-shadow: 2px 0px 0px 0px #333;
   background-color: transparent;
   margin-right: var(--btn-margin);
   cursor: pointer;
@@ -67,7 +70,7 @@
 .position {
   display: flex;
   background-color: #fff;
-  border-top: 1px solid #333333;
+  border-top: 2px solid #333333;
 }
 
 .content {
