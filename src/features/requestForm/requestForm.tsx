@@ -48,7 +48,7 @@ export const RequestForm = () => {
         <h4 className={s.title}>WHY?</h4>
 
         <p className={s.subtitle}>
-          Because default Uniswap UX sucks and DeBank doesn't show the range of the positions
+          Because default Uniswap UX&nbsp;sucks and DeBank doesn&rsquo;t show the range of&nbsp;the positions
         </p>
 
         <div className={s.inputWrapper}>

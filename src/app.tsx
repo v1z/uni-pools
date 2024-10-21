@@ -4,11 +4,8 @@ import { Provider } from 'react-redux'
 
 import { MainPage } from './pages/MainPage'
 import { store } from './store/store'
-import { initFocusRing } from './utils/scripts/focusRing'
 
 import './styles/default.css'
-
-initFocusRing()
 
 const container = document.getElementById('root')
 const root = createRoot(container!)

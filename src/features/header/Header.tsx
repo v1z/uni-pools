@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 
 import { Container } from '../../shared/components/Container'
+import { getFormattedPrice } from '../../shared/utils'
 import { pricesSettled, selectPrices } from '../../store/slices/pricesSlice'
 import { useAppDispatch, useAppSelector } from '../../store/store'
 
@@ -25,7 +26,7 @@ export const Header = () => {
         <ul className={s.wrapper}>
           {Object.entries(prices).map((pair) => {
             const [token, tokenPrice] = pair
-            const priceText = tokenPrice ? `$${tokenPrice}` : NO_PRICE_TEXT
+            const priceText = tokenPrice ? `$${getFormattedPrice(tokenPrice)}` : NO_PRICE_TEXT
 
             return (
               <li className={s.item} key={token}>

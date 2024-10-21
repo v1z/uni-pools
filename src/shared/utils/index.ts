@@ -1,4 +1,4 @@
-import type { SupportedChainsType, SupportedTokensType } from '../../types'
+import type { SupportedChainsType } from '../../types'
 
 import { CONTRACTS } from './tokenContracts'
 
@@ -6,22 +6,42 @@ import { CONTRACTS } from './tokenContracts'
 export const isTokenSupported = (chain: SupportedChainsType, contract: string): boolean => {
   const chainMap = CONTRACTS[chain]
 
-  return Object.entries(chainMap).some(([_, data]) => data.contract === contract)
+  return Object.keys(chainMap).some(tokenContract => tokenContract === contract)
 }
 
-export const getTokenSymbol = (chain: SupportedChainsType, contract: string): SupportedTokensType => {
-  const chainMap = CONTRACTS[chain]
-  const entries = Object.entries(chainMap)
+export const getTokenSymbol = (chain: SupportedChainsType, contract: string): string => {
+  const token = CONTRACTS[chain][contract]
 
-  // type cast cuz it always called after support check
-  return entries.find(([_, data]) => data.contract === contract)?.[0] as SupportedTokensType
+  if (!token) {
+    return ''
+  }
+
+  return token.symbol
 }
 
 // TODO: tests
 export const getTokenDecimal = (chain: SupportedChainsType, contract: string): number => {
-  const chainMap = CONTRACTS[chain]
-  const entries = Object.entries(chainMap)
+  const token = CONTRACTS[chain][contract]
 
-  // type cast cuz it always called after support check
-  return entries.find(([_, data]) => data.contract === contract)?.[1].decimals as number
+  if (!token) {
+    return 0
+  }
+
+  return token.decimals
+}
+
+export const getFormattedPrice = (price: number): string => {
+  let count = 1;
+
+  return price.toString().split('').reduceRight((acc, char) => {
+    if (count === 3) {
+      count = 1;
+
+      return `${char},${acc}`
+    }
+
+    count++;
+
+    return `${char}${acc}`
+  })
 }

@@ -1,6 +1,7 @@
 import React from 'react'
 
 import type { PositionType } from '../../../types'
+import { getFormattedPrice } from '../../../shared/utils'
 
 import s from '../styles.css'
 import LinkIcon from '../icons/link.svg'
@@ -18,9 +19,9 @@ export const Item = (props: PositionType) => {
       <div className={s.content}>
         <span className={s.part}>
           {`Range: `}
-          {range.lower}
+          {getFormattedPrice(range.lower)}
           {' - '}
-          {range.upper}
+          {getFormattedPrice(range.upper)}
         </span>
 
         {liquidity !== 0 && (
