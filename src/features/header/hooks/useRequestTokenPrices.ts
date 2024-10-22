@@ -1,19 +1,20 @@
 import axios from 'axios'
 
-import type { PricesPayloadType, RawPricesType } from '../types'
+import type { TokenPricesType, RawPricesType } from '../types'
 
 import mockData from './mock'
 
 const ENDPOINT = 'https://uni-server-artem-glukhanko.vercel.app/api/get-token-prices'
 
-export const useRequestTokenPrices = async (): Promise<PricesPayloadType> => {
+export const useRequestTokenPrices = async (): Promise<TokenPricesType> => {
   const rawData = mockData as RawPricesType
   // const rawData = await axios.get(ENDPOINT)
   //   .then(res => res.data) as RawPricesType
 
-  const result: PricesPayloadType = {
+  const result: TokenPricesType = {
     BTC: undefined,
     ETH: undefined,
+    USD: 1,
   }
 
   if (rawData.status.error_code === 0) {
@@ -21,7 +22,7 @@ export const useRequestTokenPrices = async (): Promise<PricesPayloadType> => {
       const data = rawData.data[key]
 
       return { ...acc, [data.symbol]: Math.round(data.quote.USD.price) }
-    }, {} as PricesPayloadType)
+    }, {} as TokenPricesType)
 
     result['BTC'] = prices['BTC']
     result['ETH'] = prices['ETH']

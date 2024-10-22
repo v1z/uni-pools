@@ -2,17 +2,17 @@ import type { PayloadAction } from '@reduxjs/toolkit'
 import { createSlice } from '@reduxjs/toolkit'
 
 import type { RootState } from '../store'
-
-export type PricesPayloadType = Record<'ETH' | 'BTC', number | undefined>
+import type { TokenPricesType } from '../../types'
 
 type PricesState = {
-  value: PricesPayloadType
+  value: TokenPricesType
 }
 
 const initialState: PricesState = {
   value: {
     BTC: undefined,
     ETH: undefined,
+    USD: 1
   },
 }
 
@@ -20,8 +20,8 @@ const pricesSlice = createSlice({
   name: 'prices',
   initialState,
   reducers: {
-    pricesSettled: (state, action: PayloadAction<PricesPayloadType>) => {
-      state.value = action.payload
+    pricesSettled: (state, action: PayloadAction<TokenPricesType>) => {
+      state.value = {...action.payload, USD: 1}
     },
   },
 })

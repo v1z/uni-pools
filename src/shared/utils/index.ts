@@ -1,4 +1,4 @@
-import type { SupportedChainsType } from '../../types'
+import type { SupportedChainsType, TokenPricesType, SupportedTickersType, SupportedTockensType } from '../../types'
 
 import { CONTRACTS } from './tokenContracts'
 
@@ -9,37 +9,18 @@ export const isTokenSupported = (chain: SupportedChainsType, contract: string): 
   return Object.keys(chainMap).some(tokenContract => tokenContract === contract)
 }
 
-export const getTokenSymbol = (chain: SupportedChainsType, contract: string): string => {
-  const token = CONTRACTS[chain][contract]
-
-  if (!token) {
-    return ''
-  }
-
-  return token.symbol
+export const getTokenSymbol = (chain: SupportedChainsType, contract: string): SupportedTockensType => {
+  return CONTRACTS[chain][contract].symbol
 }
 
 // TODO: tests
 export const getTokenDecimal = (chain: SupportedChainsType, contract: string): number => {
-  const token = CONTRACTS[chain][contract]
-
-  if (!token) {
-    return 0
-  }
-
-  return token.decimals
+  return CONTRACTS[chain][contract].decimals
 }
-
 
 // TODO: tests
 export const getTokenFixed = (chain: SupportedChainsType, contract: string): number => {
-  const token = CONTRACTS[chain][contract]
-
-  if (!token) {
-    return 0
-  }
-
-  return token.fixed
+  return CONTRACTS[chain][contract].fixed
 }
 
 export const getFormattedAmount = (amount: number | string): string => {
@@ -60,4 +41,20 @@ export const getFormattedAmount = (amount: number | string): string => {
   })
 
   return `${formatted}${parts[1] ? `.${parts[1]}` : ''}`
+}
+
+const TOKENS_MAP: Record<SupportedTockensType, SupportedTickersType> = {
+  'ETH': 'ETH',
+  'WETH': 'ETH',
+  'WBTC': 'BTC',
+  'USDT': 'USD',
+  'USDC': 'USD'
+}
+
+// TODO: tests
+export const getTokenPrice = (token0: SupportedTockensType, token1: SupportedTockensType, prices: TokenPricesType): number | undefined => {
+  const usdPrice0 = prices[TOKENS_MAP[token0]]
+  const usdPrice1 = prices[TOKENS_MAP[token1]]
+
+  return (usdPrice0 && usdPrice1) ? usdPrice0 / usdPrice1 : undefined
 }

@@ -1,4 +1,4 @@
-import { PricesPayloadType } from '../../store/slices/pricesSlice'
+import { TokenPricesType } from '../../types'
 
 export type RawPricesType = {
   status: {
@@ -17,4 +17,4 @@ export type RawPricesType = {
   >
 }
 
-export { PricesPayloadType }
+export { TokenPricesType }

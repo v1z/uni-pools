@@ -1,15 +1,15 @@
-import type { SupportedChainsType } from '../../types'
+import type { SupportedChainsType, SupportedTockensType } from '../../types'
 
 
 type TokenType = {
   [key in string]: {
-    'symbol': string
+    'symbol': SupportedTockensType
     'decimals': number
     'fixed': number
   }
 }
 
-export const CONTRACTS: Record<SupportedChainsType, Partial<TokenType>> = {
+export const CONTRACTS: Record<SupportedChainsType, TokenType> = {
   Arbitrum: {
     '0x82af49447d8a07e3bd95bd0d56f35241523fbab1': {
       symbol: 'ETH',

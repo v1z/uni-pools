@@ -26,6 +26,8 @@ export const Header = () => {
         <ul className={s.wrapper}>
           {Object.entries(prices).map((pair) => {
             const [token, tokenPrice] = pair
+            if (token === 'USD') return null
+
             const priceText = tokenPrice ? `$${getFormattedAmount(tokenPrice)}` : NO_PRICE_TEXT
 
             return (

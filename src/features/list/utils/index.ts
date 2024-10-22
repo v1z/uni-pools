@@ -1,4 +1,4 @@
-import { getTokenSymbol, isTokenSupported, getTokenFixed, getFormattedAmount } from '../../../shared/utils'
+import { getTokenSymbol, isTokenSupported, getFormattedAmount } from '../../../shared/utils'
 import type { PositionType, SupportedChainsType } from '../../../types'
 
 export type SortedByPoolType = Record<string, PositionType[]>
@@ -64,15 +64,13 @@ export const sortPositions = (positions: PositionType[]): SortedPositionsType =>
 
 // TODO: test
 export const getLiquidityText = (position: PositionType): string => {
-  const {token0, token1, symbol0, symbol1, chain, liquidity} = position
+  const {symbol0, symbol1, liquidity} = position
 
   if (!liquidity) {
     return ''
   }
 
-  // TODO: move toFixed to requestForm formatted method
-  const tokens0 = liquidity.token0 ? liquidity.token0.toFixed(getTokenFixed(chain, token0)) : 0
-  const tokens1 = liquidity.token1 ? liquidity.token1.toFixed(getTokenFixed(chain, token1)) : 0
+  const {token0, token1} = liquidity
 
-  return `${getFormattedAmount(tokens0)} ${symbol0} / ${getFormattedAmount(tokens1)} ${symbol1}`
+  return `${getFormattedAmount(token0)} ${symbol0} / ${getFormattedAmount(token1)} ${symbol1}`
 }

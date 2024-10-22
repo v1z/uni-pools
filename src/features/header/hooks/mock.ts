@@ -181,7 +181,7 @@ export default {
       last_updated: '2024-10-15T17:57:00.000Z',
       quote: {
         USD: {
-          price: 66839.37182391781,
+          price: 67316.37182391781,
           volume_24h: 46877533385.15069,
           volume_change_24h: 17.983,
           percent_change_1h: 0.02598389,
@@ -366,7 +366,7 @@ export default {
       last_updated: '2024-10-15T17:57:00.000Z',
       quote: {
         USD: {
-          price: 2583.8955402509437,
+          price: 2622.8955402509437,
           volume_24h: 21548901663.846832,
           volume_change_24h: 6.9636,
           percent_change_1h: -0.36261277,

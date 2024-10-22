@@ -1,20 +1,23 @@
-import type { PositionType, PriceRangeType, RawPositionType, SupportedChainsType, LiquidityType } from '../types'
-import {getTokenDecimal, getTokenSymbol} from '../../../shared/utils'
+import type { PositionType, PriceRangeType, RawPositionType, SupportedChainsType, LiquidityType, TokenPricesType } from '../types'
+import {getTokenDecimal, getTokenSymbol, getTokenFixed, getTokenPrice} from '../../../shared/utils'
 
 // TODO: tests
-export const getFormattedPosition = (position: RawPositionType, prices): PositionType => {
-  const {token0, token1, chain, fee} = position
+export const getFormattedPosition = (position: RawPositionType, prices: TokenPricesType): PositionType => {
+  const {token0: t0, token1: t1, chain, fee} = position
+
+  const token0 = t0.toLowerCase()
+  const token1 = t1.toLowerCase()
 
   return {
-    token0: token0.toLowerCase(),
-    token1: token1.toLowerCase(),
-    symbol0: getTokenSymbol(chain, token0.toLowerCase()),
-    symbol1: getTokenSymbol(chain, token1.toLowerCase()),
+    token0,
+    token1,
+    symbol0: getTokenSymbol(chain, token0),
+    symbol1: getTokenSymbol(chain, token1),
     fee: fee / 10000,
     url: getPoolURL(position),
-    range: getPriceRange(position),
+    range: getPriceRange({...position, token0, token1}),
     chain,
-    liquidity: getLiquidity(position, prices),
+    liquidity: getLiquidity({...position, token0, token1}, prices),
     // uncollected fees
     // tokens0: Number(position.tokensOwed0._hex),
     // tokens1: Number(position.tokensOwed1._hex),
@@ -33,8 +36,8 @@ const getTokensDecimalMultiplier = ({
   token1: RawPositionType['token1']
   chain: RawPositionType['chain']
 }): number => {
-  const decimal0 = getTokenDecimal(chain, token0.toLowerCase())
-  const decimal1 = getTokenDecimal(chain, token1.toLowerCase())
+  const decimal0 = getTokenDecimal(chain, token0)
+  const decimal1 = getTokenDecimal(chain, token1)
 
   const delta = Math.abs(decimal0 - decimal1)
 
@@ -75,8 +78,8 @@ export const getPoolURL = (position: RawPositionType): string => {
   return `${POOL_URL_BASE}${Number(position.tokenId._hex)}?chain=${chain}`
 }
 
-export const getLiquidity = (position: RawPositionType, prices): LiquidityType => {
-  const {chain, token0, token1} = position
+export const getLiquidity = (position: RawPositionType, prices: TokenPricesType): LiquidityType => {
+  const {chain, token0, token1, tickLower, tickUpper} = position
 
   const deltaDecimals = getTokensDecimalMultiplier({
     token0,
@@ -84,22 +87,20 @@ export const getLiquidity = (position: RawPositionType, prices): LiquidityType =
     chain
   })
 
-  const symbol0 = getTokenSymbol(chain, token0.toLowerCase())
-  const symbol1 = getTokenSymbol(chain, token1.toLowerCase())
+  const symbol0 = getTokenSymbol(chain, token0)
+  const symbol1 = getTokenSymbol(chain, token1)
 
-  // TODO
-  const usdPrice = prices[symbol0] || prices[symbol1]
-
-  const currentTick = Math.log(usdPrice / deltaDecimals) / Math.log(TICK_BASE)
-
+  const usdPrice = getTokenPrice(symbol0, symbol1, prices)
   const liquidity = Number(position.liquidity._hex)
 
-  if (!liquidity) {
+  if (!usdPrice || !liquidity) {
     return undefined
   }
 
-  const sqrtLower = Math.pow(TICK_BASE, position.tickLower / 2)
-  const sqrtUpper = Math.pow(TICK_BASE, position.tickUpper / 2)
+  const currentTick = Math.floor(Math.log(usdPrice / deltaDecimals) / Math.log(TICK_BASE))
+
+  const sqrtLower = Math.pow(TICK_BASE, tickLower / 2)
+  const sqrtUpper = Math.pow(TICK_BASE, tickUpper / 2)
 
   const sqrtCurrent = Math.pow(TICK_BASE, currentTick / 2)
 
@@ -122,7 +123,7 @@ export const getLiquidity = (position: RawPositionType, prices): LiquidityType =
   const tokens1 = amount1 / Math.pow(10, getTokenDecimal(chain, token1.toLowerCase()))
 
   return {
-    token0: tokens0,
-    token1: tokens1
+    token0: Number(tokens0.toFixed(getTokenFixed(chain, token0))),
+    token1: Number(tokens1.toFixed(getTokenFixed(chain, token1)))
   }
 }
