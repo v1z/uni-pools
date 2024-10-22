@@ -4,7 +4,8 @@ import Button from '@mui/material/Button'
 import TextField from '@mui/material/TextField'
 
 import { positionsSettled } from '../../store/slices/positionsSlice'
-import { useAppDispatch } from '../../store/store'
+import { selectPrices } from '../../store/slices/pricesSlice'
+import { useAppDispatch, useAppSelector } from '../../store/store'
 
 import { useRequestPositions } from './hooks/useRequestPositions'
 import { getFormattedPosition } from './utils'
@@ -23,13 +24,15 @@ export const RequestForm = () => {
 
   const dispatch = useAppDispatch()
 
+  const prices = useAppSelector(selectPrices)
+
   // TODO: add validation by regex
   const handleSubmit = () => {
     handleRequestClick()
 
     useRequestPositions(userAddress)
       .then((rawPositions) => {
-        const formattedPositions = rawPositions.map(getFormattedPosition)
+        const formattedPositions = rawPositions.map((pos) => getFormattedPosition(pos, prices))
 
         dispatch(positionsSettled(formattedPositions))
 

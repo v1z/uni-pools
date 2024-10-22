@@ -30,10 +30,24 @@ export const getTokenDecimal = (chain: SupportedChainsType, contract: string): n
   return token.decimals
 }
 
-export const getFormattedPrice = (price: number): string => {
+
+// TODO: tests
+export const getTokenFixed = (chain: SupportedChainsType, contract: string): number => {
+  const token = CONTRACTS[chain][contract]
+
+  if (!token) {
+    return 0
+  }
+
+  return token.fixed
+}
+
+export const getFormattedAmount = (amount: number | string): string => {
   let count = 1;
 
-  return price.toString().split('').reduceRight((acc, char) => {
+  const parts = amount.toString().split('.')
+
+  const formatted = parts[0].toString().split('').reduceRight((acc, char) => {
     if (count === 3) {
       count = 1;
 
@@ -44,4 +58,6 @@ export const getFormattedPrice = (price: number): string => {
 
     return `${char}${acc}`
   })
+
+  return `${formatted}${parts[1] ? `.${parts[1]}` : ''}`
 }

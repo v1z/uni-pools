@@ -1,16 +1,22 @@
 import React from 'react'
+import cn from 'classnames'
 
 import type { PositionType } from '../../../types'
-import { getFormattedPrice } from '../../../shared/utils'
+import { getFormattedAmount } from '../../../shared/utils'
+import { getLiquidityText } from '../utils'
 
 import s from '../styles.css'
 import LinkIcon from '../icons/link.svg'
 
 export const Item = (props: PositionType) => {
-  const { url, range, liquidity, tokens0, tokens1 } = props
+  const { url, range, liquidity } = props
 
   return (
-    <div className={s.position}>
+    <div
+      className={cn(s.position, {
+        [s.position_empty]: !liquidity,
+      })}
+    >
       <a href={url} target="_blank" className={s.actionControl} rel="noreferrer">
         {url}
         <LinkIcon className={s.actionIcon} />
@@ -19,17 +25,12 @@ export const Item = (props: PositionType) => {
       <div className={s.content}>
         <span className={s.part}>
           {`Range: `}
-          {getFormattedPrice(range.lower)}
+          {getFormattedAmount(range.lower)}
           {' - '}
-          {getFormattedPrice(range.upper)}
+          {getFormattedAmount(range.upper)}
         </span>
 
-        {liquidity !== 0 && (
-          <span className={s.part}>
-            {`Liquidity: `}
-            {liquidity}
-          </span>
-        )}
+        {liquidity && <span className={s.part}>{`Liquidity: ${getLiquidityText(props)}`}</span>}
 
         {/* {(tokens0 || tokens1) && (
           <span className={s.part}>

@@ -2,6 +2,10 @@
   --btn-margin: 12px;
 }
 
+.root {
+  padding: 48px 0;
+}
+
 .chainItem {
   &:not(:first-child) {
     margin-top: 24px;

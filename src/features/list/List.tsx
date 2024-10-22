@@ -7,6 +7,8 @@ import { SupportedChainsType } from '../../types'
 import { Chain } from './components/Chain'
 import { sortPositions } from './utils'
 
+import s from './styles.css'
+
 export const List = () => {
   const positions = useAppSelector(selectPositions)
 
@@ -14,7 +16,7 @@ export const List = () => {
   const chains = Object.keys(sortedPositions)
 
   return (
-    <section>
+    <section className={s.root}>
       <ul>
         {chains.map((chain: SupportedChainsType) => {
           return <Chain name={chain} pools={sortedPositions[chain]} key={chain} />

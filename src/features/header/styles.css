@@ -2,8 +2,6 @@
   position: sticky;
   z-index: 100;
   top: 0;
-
-  /* box-shadow: 0 1px 2px 0 #e1e5ea; */
   background-color: #fff;
   border-bottom: 2px solid black;
 }
@@ -21,17 +19,6 @@
   &:not(:last-child) {
     margin-right: 24px;
   }
-
-  /* &:not(:last-child)::after {
-    content: '';
-    display: block;
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background-color: #333;
-    margin-right: 16px;
-    margin-left: 16px;
-  } */
 }
 
 .tokenName {

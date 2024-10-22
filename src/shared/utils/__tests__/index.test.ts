@@ -1,4 +1,4 @@
-import { getTokenSymbol, getFormattedPrice } from '../index'
+import { getTokenSymbol, getFormattedAmount } from '../index'
 
 describe('shared - getTokenSymbol', () => {
   test('USDC', () => {
@@ -11,17 +11,24 @@ describe('shared - getTokenSymbol', () => {
 })
 
 
-describe('shared - getFormattedPrice', () => {
+describe('shared - getFormattedAmount', () => {
   test('3 digits', () => {
-    expect(getFormattedPrice(100)).toBe('100')
+    expect(getFormattedAmount(100)).toBe('100')
   })
 
   test('4 digits', () => {
-    expect(getFormattedPrice(1000)).toBe('1,000')
+    expect(getFormattedAmount(1000)).toBe('1,000')
   })
 
   test('5 digits', () => {
-    expect(getFormattedPrice(10000)).toBe('10,000')
+    expect(getFormattedAmount(10000)).toBe('10,000')
   })
 
+  test('7 digits', () => {
+    expect(getFormattedAmount(1000000)).toBe('1,000,000')
+  })
+
+  test('float', () => {
+    expect(getFormattedAmount(1000.4769)).toBe('1,000.4769')
+  })
 })

@@ -36,7 +36,7 @@ export const Pool = (props: PoolPropsType) => {
 
         <span className={s.part}>{`Liqudity: `}</span>
 
-        <span className={s.part}>{`Fees: `}</span>
+        {/* <span className={s.part}>{`Fees: `}</span> */}
       </div>
 
       <ul
