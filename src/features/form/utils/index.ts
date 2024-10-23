@@ -1,4 +1,4 @@
-import type { PositionType, PriceRangeType, RawPositionType, SupportedChainsType, LiquidityType, TokenPricesType } from '../types'
+import type { PositionType, PriceRangeType, RawPositionType, SupportedChainsType, TokenPricesType, TokensPairType } from '../types'
 import {getTokenDecimal, getTokenSymbol, getTokenFixed, getTokenPrice} from '../../../shared/utils'
 
 // TODO: tests
@@ -18,9 +18,7 @@ export const getFormattedPosition = (position: RawPositionType, prices: TokenPri
     range: getPriceRange({...position, token0, token1}),
     chain,
     liquidity: getLiquidity({...position, token0, token1}, prices),
-    // uncollected fees
-    // tokens0: Number(position.tokensOwed0._hex),
-    // tokens1: Number(position.tokensOwed1._hex),
+    uncollectedFees: getUncollectedFees(position),
   }
 }
 
@@ -78,7 +76,7 @@ export const getPoolURL = (position: RawPositionType): string => {
   return `${POOL_URL_BASE}${Number(position.tokenId._hex)}?chain=${chain}`
 }
 
-export const getLiquidity = (position: RawPositionType, prices: TokenPricesType): LiquidityType => {
+export const getLiquidity = (position: RawPositionType, prices: TokenPricesType): TokensPairType => {
   const {chain, token0, token1, tickLower, tickUpper} = position
 
   const deltaDecimals = getTokensDecimalMultiplier({
@@ -121,6 +119,29 @@ export const getLiquidity = (position: RawPositionType, prices: TokenPricesType)
 
   const tokens0 = amount0 / Math.pow(10, getTokenDecimal(chain, token0.toLowerCase()))
   const tokens1 = amount1 / Math.pow(10, getTokenDecimal(chain, token1.toLowerCase()))
+
+  return {
+    token0: Number(tokens0.toFixed(getTokenFixed(chain, token0))),
+    token1: Number(tokens1.toFixed(getTokenFixed(chain, token1)))
+  }
+}
+
+export const getUncollectedFees = (position: RawPositionType): TokensPairType => {
+  const {chain, token0: t0, token1: t1, uncollectedFees} = position
+  const [amount0, amount1] = uncollectedFees
+
+  const a0 = Number(amount0._hex)
+  const a1 = Number(amount1._hex)
+
+  if (a0 === 0 && a1 === 0) {
+    return undefined
+  }
+
+  const token0 = t0.toLowerCase()
+  const token1 = t1.toLowerCase()
+
+  const tokens0 = a0 / Math.pow(10, getTokenDecimal(chain, token0))
+  const tokens1 = a1 / Math.pow(10, getTokenDecimal(chain, token1))
 
   return {
     token0: Number(tokens0.toFixed(getTokenFixed(chain, token0))),

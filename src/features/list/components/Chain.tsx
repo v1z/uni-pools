@@ -27,7 +27,7 @@ export const Chain = (props: ChainPropsType) => {
 
           return (
             <li key={poolName} className={s.pool}>
-              <Pool name={poolName} positions={pool['positions']} liquidity={pool['liquidity']} />
+              <Pool name={poolName} {...pool} />
             </li>
           )
         })}

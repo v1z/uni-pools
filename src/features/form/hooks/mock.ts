@@ -64,7 +64,17 @@ export default [
           "type": "BigNumber",
           "_hex": "0x00"
       },
-      "chain": "Arbitrum"
+      "chain": "Arbitrum",
+      "uncollectedFees": [
+          {
+              "type": "BigNumber",
+              "_hex": "0x00"
+          },
+          {
+              "type": "BigNumber",
+              "_hex": "0x00"
+          }
+      ]
   },
   {
       "0": {
@@ -131,7 +141,17 @@ export default [
           "type": "BigNumber",
           "_hex": "0x00"
       },
-      "chain": "Arbitrum"
+      "chain": "Arbitrum",
+      "uncollectedFees": [
+          {
+              "type": "BigNumber",
+              "_hex": "0x00"
+          },
+          {
+              "type": "BigNumber",
+              "_hex": "0x00"
+          }
+      ]
   },
   {
       "0": {
@@ -198,7 +218,17 @@ export default [
           "type": "BigNumber",
           "_hex": "0x00"
       },
-      "chain": "Arbitrum"
+      "chain": "Arbitrum",
+      "uncollectedFees": [
+          {
+              "type": "BigNumber",
+              "_hex": "0x00"
+          },
+          {
+              "type": "BigNumber",
+              "_hex": "0x00"
+          }
+      ]
   },
   {
       "0": {
@@ -265,7 +295,17 @@ export default [
           "type": "BigNumber",
           "_hex": "0x00"
       },
-      "chain": "Arbitrum"
+      "chain": "Arbitrum",
+      "uncollectedFees": [
+          {
+              "type": "BigNumber",
+              "_hex": "0x00"
+          },
+          {
+              "type": "BigNumber",
+              "_hex": "0x00"
+          }
+      ]
   },
   {
       "0": {
@@ -332,7 +372,17 @@ export default [
           "type": "BigNumber",
           "_hex": "0x00"
       },
-      "chain": "Arbitrum"
+      "chain": "Arbitrum",
+      "uncollectedFees": [
+          {
+              "type": "BigNumber",
+              "_hex": "0x00"
+          },
+          {
+              "type": "BigNumber",
+              "_hex": "0x00"
+          }
+      ]
   },
   {
       "0": {
@@ -399,7 +449,17 @@ export default [
           "type": "BigNumber",
           "_hex": "0x00"
       },
-      "chain": "Arbitrum"
+      "chain": "Arbitrum",
+      "uncollectedFees": [
+          {
+              "type": "BigNumber",
+              "_hex": "0x00"
+          },
+          {
+              "type": "BigNumber",
+              "_hex": "0x00"
+          }
+      ]
   },
   {
       "0": {
@@ -466,7 +526,17 @@ export default [
           "type": "BigNumber",
           "_hex": "0x00"
       },
-      "chain": "Arbitrum"
+      "chain": "Arbitrum",
+      "uncollectedFees": [
+          {
+              "type": "BigNumber",
+              "_hex": "0x00"
+          },
+          {
+              "type": "BigNumber",
+              "_hex": "0x00"
+          }
+      ]
   },
   {
       "0": {
@@ -533,7 +603,17 @@ export default [
           "type": "BigNumber",
           "_hex": "0x00"
       },
-      "chain": "Arbitrum"
+      "chain": "Arbitrum",
+      "uncollectedFees": [
+          {
+              "type": "BigNumber",
+              "_hex": "0x00"
+          },
+          {
+              "type": "BigNumber",
+              "_hex": "0x00"
+          }
+      ]
   },
   {
       "0": {
@@ -600,7 +680,17 @@ export default [
           "type": "BigNumber",
           "_hex": "0x00"
       },
-      "chain": "Arbitrum"
+      "chain": "Arbitrum",
+      "uncollectedFees": [
+          {
+              "type": "BigNumber",
+              "_hex": "0x00"
+          },
+          {
+              "type": "BigNumber",
+              "_hex": "0x00"
+          }
+      ]
   },
   {
       "0": {
@@ -667,7 +757,17 @@ export default [
           "type": "BigNumber",
           "_hex": "0x00"
       },
-      "chain": "Arbitrum"
+      "chain": "Arbitrum",
+      "uncollectedFees": [
+          {
+              "type": "BigNumber",
+              "_hex": "0x00"
+          },
+          {
+              "type": "BigNumber",
+              "_hex": "0x00"
+          }
+      ]
   },
   {
       "0": {
@@ -734,7 +834,17 @@ export default [
           "type": "BigNumber",
           "_hex": "0x00"
       },
-      "chain": "Arbitrum"
+      "chain": "Arbitrum",
+      "uncollectedFees": [
+          {
+              "type": "BigNumber",
+              "_hex": "0x04edf0c66d4b83"
+          },
+          {
+              "type": "BigNumber",
+              "_hex": "0x2f1aff"
+          }
+      ]
   },
   {
       "0": {
@@ -801,7 +911,17 @@ export default [
           "type": "BigNumber",
           "_hex": "0x00"
       },
-      "chain": "Arbitrum"
+      "chain": "Arbitrum",
+      "uncollectedFees": [
+          {
+              "type": "BigNumber",
+              "_hex": "0x1255"
+          },
+          {
+              "type": "BigNumber",
+              "_hex": "0x313e72"
+          }
+      ]
   },
   {
       "0": {
@@ -868,7 +988,17 @@ export default [
           "type": "BigNumber",
           "_hex": "0x00"
       },
-      "chain": "Arbitrum"
+      "chain": "Arbitrum",
+      "uncollectedFees": [
+          {
+              "type": "BigNumber",
+              "_hex": "0x1c7a6f67e1db25"
+          },
+          {
+              "type": "BigNumber",
+              "_hex": "0x01385d5c"
+          }
+      ]
   },
   {
       "0": {
@@ -935,7 +1065,17 @@ export default [
           "type": "BigNumber",
           "_hex": "0x00"
       },
-      "chain": "Arbitrum"
+      "chain": "Arbitrum",
+      "uncollectedFees": [
+          {
+              "type": "BigNumber",
+              "_hex": "0x0d0430932b2727"
+          },
+          {
+              "type": "BigNumber",
+              "_hex": "0x9893a7"
+          }
+      ]
   },
   {
       "0": {
@@ -1002,7 +1142,17 @@ export default [
           "type": "BigNumber",
           "_hex": "0x00"
       },
-      "chain": "Arbitrum"
+      "chain": "Arbitrum",
+      "uncollectedFees": [
+          {
+              "type": "BigNumber",
+              "_hex": "0x00"
+          },
+          {
+              "type": "BigNumber",
+              "_hex": "0x00"
+          }
+      ]
   },
   {
       "0": {
@@ -1069,7 +1219,17 @@ export default [
           "type": "BigNumber",
           "_hex": "0x00"
       },
-      "chain": "Base"
+      "chain": "Base",
+      "uncollectedFees": [
+          {
+              "type": "BigNumber",
+              "_hex": "0x00"
+          },
+          {
+              "type": "BigNumber",
+              "_hex": "0x00"
+          }
+      ]
   },
   {
       "0": {
@@ -1136,7 +1296,17 @@ export default [
           "type": "BigNumber",
           "_hex": "0x00"
       },
-      "chain": "Base"
+      "chain": "Base",
+      "uncollectedFees": [
+          {
+              "type": "BigNumber",
+              "_hex": "0x00"
+          },
+          {
+              "type": "BigNumber",
+              "_hex": "0x00"
+          }
+      ]
   },
   {
       "0": {
@@ -1203,7 +1373,17 @@ export default [
           "type": "BigNumber",
           "_hex": "0x00"
       },
-      "chain": "Base"
+      "chain": "Base",
+      "uncollectedFees": [
+          {
+              "type": "BigNumber",
+              "_hex": "0x00"
+          },
+          {
+              "type": "BigNumber",
+              "_hex": "0x00"
+          }
+      ]
   },
   {
       "0": {
@@ -1270,7 +1450,17 @@ export default [
           "type": "BigNumber",
           "_hex": "0x00"
       },
-      "chain": "Base"
+      "chain": "Base",
+      "uncollectedFees": [
+          {
+              "type": "BigNumber",
+              "_hex": "0x00"
+          },
+          {
+              "type": "BigNumber",
+              "_hex": "0x00"
+          }
+      ]
   },
   {
       "0": {
@@ -1337,7 +1527,17 @@ export default [
           "type": "BigNumber",
           "_hex": "0x00"
       },
-      "chain": "Base"
+      "chain": "Base",
+      "uncollectedFees": [
+          {
+              "type": "BigNumber",
+              "_hex": "0x00"
+          },
+          {
+              "type": "BigNumber",
+              "_hex": "0x00"
+          }
+      ]
   },
   {
       "0": {
@@ -1404,7 +1604,17 @@ export default [
           "type": "BigNumber",
           "_hex": "0x00"
       },
-      "chain": "Base"
+      "chain": "Base",
+      "uncollectedFees": [
+          {
+              "type": "BigNumber",
+              "_hex": "0x00"
+          },
+          {
+              "type": "BigNumber",
+              "_hex": "0x00"
+          }
+      ]
   },
   {
       "0": {
@@ -1471,7 +1681,17 @@ export default [
           "type": "BigNumber",
           "_hex": "0x00"
       },
-      "chain": "Base"
+      "chain": "Base",
+      "uncollectedFees": [
+          {
+              "type": "BigNumber",
+              "_hex": "0x00"
+          },
+          {
+              "type": "BigNumber",
+              "_hex": "0x00"
+          }
+      ]
   },
   {
       "0": {
@@ -1538,7 +1758,17 @@ export default [
           "type": "BigNumber",
           "_hex": "0x00"
       },
-      "chain": "Base"
+      "chain": "Base",
+      "uncollectedFees": [
+          {
+              "type": "BigNumber",
+              "_hex": "0x00"
+          },
+          {
+              "type": "BigNumber",
+              "_hex": "0x00"
+          }
+      ]
   },
   {
       "0": {
@@ -1605,6 +1835,16 @@ export default [
           "type": "BigNumber",
           "_hex": "0x00"
       },
-      "chain": "Base"
+      "chain": "Base",
+      "uncollectedFees": [
+          {
+              "type": "BigNumber",
+              "_hex": "0x00"
+          },
+          {
+              "type": "BigNumber",
+              "_hex": "0x00"
+          }
+      ]
   }
 ]

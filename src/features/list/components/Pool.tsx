@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import cn from 'classnames'
 
 import type { PoolType } from '../types'
-import { getLiquidityText } from '../utils'
+import { getTokensToText } from '../utils'
 
 import { Item } from './Item'
 
@@ -14,7 +14,7 @@ type PoolPropsType = {
 } & PoolType
 
 export const Pool = (props: PoolPropsType) => {
-  const { name, positions, liquidity } = props
+  const { name, positions, liquidity, fees } = props
 
   const [isOpened, setIsOpened] = useState(true)
 
@@ -37,9 +37,11 @@ export const Pool = (props: PoolPropsType) => {
 
         <span className={s.part}>{name}</span>
 
-        <span className={s.part}>{`LIQUIDITY: ${getLiquidityText({ symbol0, symbol1, liquidity })}`}</span>
+        {/* {liquidity && (
+          <span className={s.part}>{`Liquidity: ${getTokensToText({ symbol0, symbol1, pair: liquidity })}`}</span>
+        )} */}
 
-        {/* <span className={s.part}>{`Fees: `}</span> */}
+        {fees && <span className={s.part}>{`Fees: ${getTokensToText({ symbol0, symbol1, pair: fees })}`}</span>}
       </div>
 
       <ul

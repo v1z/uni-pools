@@ -1,4 +1,4 @@
-import type { SupportedChainsType, TokenPricesType, SupportedTickersType, SupportedTockensType, LiquidityType } from '../../types'
+import type { SupportedChainsType, TokenPricesType, SupportedTickersType, SupportedTockensType, TokensPairType } from '../../types'
 
 import { CONTRACTS } from './tokenContracts'
 
@@ -60,15 +60,15 @@ export const getTokenPrice = (token0: SupportedTockensType, token1: SupportedToc
 }
 
 // TODO: tests
-export const addLiquidity = (liq0: LiquidityType, liq1: LiquidityType): LiquidityType => {
-  if (!liq0 && !liq1) return undefined
+export const addPairs = (pairCurr: TokensPairType, pairNew: TokensPairType): TokensPairType => {
+  if (!pairCurr && !pairNew) return undefined
 
-  if (!liq0) return liq1
+  if (!pairCurr) return pairNew
 
-  if (!liq1) return liq0
+  if (!pairNew) return pairCurr
 
   return {
-    token0: liq0.token0 + liq1.token0,
-    token1: liq0.token1 + liq1.token1,
+    token0: pairCurr.token0 + pairNew.token0,
+    token1: pairCurr.token1 + pairNew.token1,
   }
 }

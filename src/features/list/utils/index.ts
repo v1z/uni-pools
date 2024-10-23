@@ -1,5 +1,5 @@
-import { getTokenSymbol, isTokenSupported, getFormattedAmount, addLiquidity } from '../../../shared/utils'
-import type { PositionType, SortedPositionsType, SortedByPoolType, SupportedChainsType } from '../types'
+import { getTokenSymbol, isTokenSupported, getFormattedAmount, addPairs } from '../../../shared/utils'
+import type { PositionType, SortedPositionsType, SortedByPoolType, SupportedChainsType, TokensPairType } from '../types'
 
 // TODO: tests
 export const filterBySupportedTokens = (positions: PositionType[]): PositionType[] => {
@@ -12,7 +12,7 @@ export const filterBySupportedTokens = (positions: PositionType[]): PositionType
 
 export const sortByPool = (positions: PositionType[]): SortedByPoolType => {
   return positions.reduce((acc, item) => {
-    const { chain, token0, token1, fee, liquidity } = item
+    const { chain, token0, token1, fee, liquidity, uncollectedFees } = item
 
     const symbol0 = getTokenSymbol(chain, token0)
     const symbol1 = getTokenSymbol(chain, token1)
@@ -29,9 +29,15 @@ export const sortByPool = (positions: PositionType[]): SortedByPoolType => {
       ? acc[poolName]['liquidity']
       : undefined
 
-    const poolLiquidity = addLiquidity(currentLiquidity, liquidity)
+    const poolLiquidity = addPairs(currentLiquidity, liquidity)
 
-    return { ...acc, [poolName]: {liquidity: poolLiquidity, positions} }
+    const currentFees = acc[poolName]
+      ? acc[poolName]['fees']
+      : undefined
+
+    const poolFees = addPairs(currentFees, uncollectedFees)
+
+    return { ...acc, [poolName]: {liquidity: poolLiquidity, fees: poolFees, positions} }
   }, {} as SortedByPoolType)
 }
 
@@ -70,12 +76,16 @@ export const sortPositions = (positions: PositionType[]): SortedPositionsType =>
 }
 
 // TODO: test
-export const getLiquidityText = ({symbol0, symbol1, liquidity}: {symbol0: PositionType['symbol0'], symbol1: PositionType['symbol1'], liquidity: PositionType['liquidity']}): string => {
-  if (!liquidity) {
+export const getTokensToText = ({symbol0, symbol1, pair}: {symbol0: PositionType['symbol0'], symbol1: PositionType['symbol1'], pair: TokensPairType}): string => {
+  if (!pair) {
     return ''
   }
 
-  const {token0, token1} = liquidity
+  const {token0, token1} = pair
 
-  return `${getFormattedAmount(token0)} ${symbol0} / ${getFormattedAmount(token1)} ${symbol1}`
+  const part0 = token0 ? `${getFormattedAmount(token0)} ${symbol0}` : ''
+  const part1 = token1 ? `${getFormattedAmount(token1)} ${symbol1}` : ''
+  const hasBoth = !!part0 && !!part1
+
+  return `${part0}${hasBoth ? ' / ' : ''}${part1}`
 }

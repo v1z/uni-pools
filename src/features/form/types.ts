@@ -1,4 +1,4 @@
-import type { PositionType, PriceRangeType, SupportedChainsType, LiquidityType, TokenPricesType } from '../../types'
+import type { PositionType, PriceRangeType, SupportedChainsType, TokenPricesType, TokensPairType } from '../../types'
 
 export type HexValueType = {
   _isBigNumber: boolean
@@ -20,6 +20,7 @@ export type RawPositionType = {
   tokensOwed0: HexValueType
   tokensOwed1: HexValueType
   chain: SupportedChainsType
+  uncollectedFees: HexValueType[]
 }
 
-export type { PositionType, PriceRangeType, SupportedChainsType, LiquidityType, TokenPricesType }
+export type { PositionType, PriceRangeType, SupportedChainsType, TokenPricesType, TokensPairType }

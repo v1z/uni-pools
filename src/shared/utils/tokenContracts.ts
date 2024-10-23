@@ -19,12 +19,12 @@ export const CONTRACTS: Record<SupportedChainsType, TokenType> = {
     '0xaf88d065e77c8cc2239327c5edb3a432268e5831': {
       symbol: 'USDC',
       decimals: 6,
-      fixed: 0
+      fixed: 2
     },
     '0xfd086bc7cd5c481dcc9c85ebe478a1c0b69fcbb9': {
       symbol: 'USDT',
       decimals: 6,
-      fixed: 0
+      fixed: 2
     },
     '0x2f2a2543b76a4166549f7aab2e75bef0aefc5b0f': {
       symbol: 'WBTC',
@@ -41,7 +41,7 @@ export const CONTRACTS: Record<SupportedChainsType, TokenType> = {
     '0x833589fcd6edb6e08f4c7c32d4f71b54bda02913': {
       symbol: 'USDC',
       decimals: 6,
-      fixed: 0
+      fixed: 2
     }
   },
 }

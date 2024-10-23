@@ -3,13 +3,13 @@ import cn from 'classnames'
 
 import type { PositionType } from '../../../types'
 import { getFormattedAmount } from '../../../shared/utils'
-import { getLiquidityText } from '../utils'
+import { getTokensToText } from '../utils'
 
 import s from '../styles.css'
 import LinkIcon from '../icons/link.svg'
 
 export const Item = (props: PositionType) => {
-  const { url, range, liquidity } = props
+  const { url, range, liquidity, uncollectedFees, symbol0, symbol1 } = props
 
   return (
     <div
@@ -30,16 +30,17 @@ export const Item = (props: PositionType) => {
           {getFormattedAmount(range.upper)}
         </span>
 
-        {liquidity && <span className={s.part}>{`Liquidity: ${getLiquidityText(props)}`}</span>}
+        {liquidity && (
+          <span className={s.part}>{`Liquidity: ${getTokensToText({ symbol0, symbol1, pair: liquidity })}`}</span>
+        )}
 
-        {/* {(tokens0 || tokens1) && (
-          <span className={s.part}>
-            {`Fees: `}
-            {tokens0}
-            {' - '}
-            {tokens1}
-          </span>
-        )} */}
+        {uncollectedFees && (
+          <span className={s.part}>{`Fees: ${getTokensToText({
+            symbol0,
+            symbol1,
+            pair: uncollectedFees,
+          })}`}</span>
+        )}
       </div>
     </div>
   )

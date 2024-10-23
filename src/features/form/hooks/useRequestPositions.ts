@@ -1,7 +1,10 @@
+
+const {abi} = require('@uniswap/v3-periphery/artifacts/contracts/NonfungiblePositionManager.sol/NonfungiblePositionManager.json');
+import {ethers} from 'ethers'
+
 import type { RawPositionType, SupportedChainsType } from '../types'
 
 import mockData from './mock'
-const ethers = require('ethers')
 
 type EndpoinType = {
   infura: string
@@ -20,13 +23,9 @@ const ENDPOINTS: Record<SupportedChainsType, EndpoinType> = {
   },
 }
 
-const CONTRACT_ABI = [
-  'function balanceOf(address owner) view returns (uint256)',
-  'function tokenOfOwnerByIndex(address owner, uint256 index) view returns (uint256)',
-  'function positions(uint256 tokenId) view returns (uint96 nonce, address operator, address token0, address token1, uint24 fee, int24 tickLower, int24 tickUpper, uint128 liquidity, uint256 feeGrowthInside0LastX128, uint256 feeGrowthInside1LastX128, uint128 tokensOwed0, uint128 tokensOwed1)',
-]
-
 const SUPPORTED_CHAINS: SupportedChainsType[] = ['Arbitrum', 'Base']
+
+const MAX = "340282366920938463463374607431768211455"
 
 export const useRequestPositions = async (userAddress: string): Promise<RawPositionType[]> => {
   return mockData
@@ -35,7 +34,7 @@ export const useRequestPositions = async (userAddress: string): Promise<RawPosit
   for (const chain of SUPPORTED_CHAINS) {
     const infuraURL = `${ENDPOINTS[chain]['infura']}${process.env.INFURA_KEY}`
     const provider = new ethers.providers.JsonRpcProvider(infuraURL)
-    const contract = new ethers.Contract(ENDPOINTS[chain]['uniNFTObserver'], CONTRACT_ABI, provider)
+    const contract = new ethers.Contract(ENDPOINTS[chain]['uniNFTObserver'], abi, provider)
 
     const balance = await contract.balanceOf(userAddress)
 
@@ -48,11 +47,18 @@ export const useRequestPositions = async (userAddress: string): Promise<RawPosit
     const tokenIds = await Promise.all(tokenPromises)
 
     const positionPromises = tokenIds.map((tokenId) => contract.positions(tokenId))
-
     const positionsData = await Promise.all(positionPromises)
 
+    const feePromises = tokenIds.map((tokenId) => contract.callStatic.collect({
+      tokenId,
+      recipient: userAddress,
+      amount0Max: MAX,
+      amount1Max: MAX
+    }))
+    const feeData = await Promise.all(feePromises)
+
     positionsData.forEach((position, index) => {
-      positions.push({ tokenId: tokenIds[index], ...position, chain })
+      positions.push({ tokenId: tokenIds[index], ...position, chain, uncollectedFees: feeData[index] })
     })
   }
 

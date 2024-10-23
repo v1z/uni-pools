@@ -13,7 +13,7 @@ export type PriceRangeType = {
   upper: number
 }
 
-export type LiquidityType = undefined | {
+export type TokensPairType = undefined | {
   token0: number
   token1: number
 }
@@ -30,7 +30,9 @@ export type PositionType = {
   url: string
 
   range: PriceRangeType
-  liquidity: LiquidityType
+  liquidity: TokensPairType
 
   chain: SupportedChainsType
+
+  uncollectedFees: TokensPairType
 }
