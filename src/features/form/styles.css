@@ -7,6 +7,10 @@
   padding-bottom: 48px;
   margin: 0 auto;
   width: var(--form-width);
+
+  &:last-child {
+    padding-bottom: 96px;
+  }
 }
 
 .form {

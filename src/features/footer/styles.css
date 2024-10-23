@@ -1,0 +1,25 @@
+.root {
+  padding: 8px 0;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background-color: #fff;
+  border-top: 2px solid black;
+}
+
+.content {
+  display: flex;
+  justify-content: space-between;
+}
+
+.link {
+  color: #333;
+  font-weight: 500;
+  transition: opacity .2s;
+
+  &:hover {
+    opacity: .3;
+  }
+}
