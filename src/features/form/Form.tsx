@@ -48,10 +48,11 @@ export const Form = () => {
   return (
     <section className={s.root}>
       <form className={s.form}>
-        <h4 className={s.title}>WHY?</h4>
+        <h4 className={s.title}>WHY</h4>
 
         <p className={s.subtitle}>
-          Because default Uniswap UX&nbsp;sucks and DeBank doesn&rsquo;t show the range of&nbsp;the positions
+          Because default Uniswap UX&nbsp;sucks and DeBank doesn’t&nbsp;show the range of&nbsp;the positions
+          as&nbsp;well as&nbsp;cumulative fees if&nbsp;there are multiple positions in&nbsp;one pool
         </p>
 
         <div className={s.inputWrapper}>
@@ -84,7 +85,7 @@ export const Form = () => {
         </div>
 
         <h4 className={s.title}>Limitations</h4>
-        <p className={s.subtitle}>At the moment you can check only following tokens and chais:</p>
+        <p className={s.subtitle}>At&nbsp;the moment you can check only the following tokens and chais:</p>
         <p className={s.subtitle}>Arbitrum - USDT / USDC / ETH / WBTC</p>
         <p className={s.subtitle}>Base - USDT / ETH</p>
       </form>

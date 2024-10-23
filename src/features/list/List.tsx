@@ -12,6 +12,8 @@ import s from './styles.css'
 export const List = () => {
   const positions = useAppSelector(selectPositions)
 
+  if (positions.length === 0) return null
+
   const sortedPositions = sortPositions(positions)
   const chains = Object.keys(sortedPositions)
 

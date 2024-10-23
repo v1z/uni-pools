@@ -15,6 +15,7 @@ export const Item = (props: PositionType) => {
     <div
       className={cn(s.position, {
         [s.position_empty]: !liquidity,
+        [s.position_active]: liquidity?.token0 && liquidity.token1,
       })}
     >
       <a href={url} target="_blank" className={s.actionControl} rel="noreferrer">

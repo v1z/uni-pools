@@ -3,7 +3,7 @@
 }
 
 .root {
-  padding-top: 48px;
+  padding-top: 96px;
   padding-bottom: 48px;
   margin: 0 auto;
   width: var(--form-width);
@@ -29,6 +29,6 @@
 .inputWrapper {
   display: flex;
   align-items: center;
-  margin-top: 12px;
-  margin-bottom: 24px;
+  margin-top: 22px;
+  margin-bottom: 30px;
 }

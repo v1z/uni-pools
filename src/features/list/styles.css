@@ -75,6 +75,10 @@
   display: flex;
   background-color: #fff;
   border-top: 2px solid #333333;
+
+  &_active {
+    font-weight: 500;
+  }
 }
 
 .content {

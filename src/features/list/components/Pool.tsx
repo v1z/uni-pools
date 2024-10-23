@@ -14,7 +14,7 @@ type PoolPropsType = {
 } & PoolType
 
 export const Pool = (props: PoolPropsType) => {
-  const { name, positions, liquidity, fees } = props
+  const { name, positions, fees } = props
 
   const [isOpened, setIsOpened] = useState(true)
 
@@ -22,6 +22,13 @@ export const Pool = (props: PoolPropsType) => {
 
   const symbol0 = positions[0].symbol0
   const symbol1 = positions[0].symbol1
+
+  const nonEmptyPositions = [] as PoolType['positions']
+  const emptyPositions = [] as PoolType['positions']
+
+  positions.map((pos) => {
+    pos.liquidity ? nonEmptyPositions.push(pos) : emptyPositions.push(pos)
+  })
 
   return (
     <>
@@ -49,7 +56,13 @@ export const Pool = (props: PoolPropsType) => {
           [s.poolItemsList_closed]: !isOpened,
         })}
       >
-        {positions.map((position) => (
+        {nonEmptyPositions.map((position) => (
+          <li key={position.url}>
+            <Item {...position} />
+          </li>
+        ))}
+
+        {emptyPositions.map((position) => (
           <li key={position.url}>
             <Item {...position} />
           </li>
