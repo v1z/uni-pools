@@ -14,7 +14,7 @@ import s from './styles.css'
 
 export type StatusType = 'awaiting' | 'requesting' | 'error' | 'fullfiled'
 
-export const RequestForm = () => {
+export const Form = () => {
   const [userAddress, setUserAddress] = useState<string>('')
   const [status, setStatus] = useState<StatusType>('awaiting')
 
