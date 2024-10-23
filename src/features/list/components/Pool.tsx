@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import cn from 'classnames'
 
-import type { PositionType } from '../../../types'
+import type { PoolType } from '../types'
+import { getLiquidityText } from '../utils'
 
 import { Item } from './Item'
 
@@ -10,15 +11,17 @@ import ToggleIcon from '../icons/arrow-down.svg'
 
 type PoolPropsType = {
   name: string
-  positions: PositionType[]
-}
+} & PoolType
 
 export const Pool = (props: PoolPropsType) => {
-  const { name, positions } = props
+  const { name, positions, liquidity } = props
 
   const [isOpened, setIsOpened] = useState(true)
 
   const handleToggle = () => setIsOpened(!isOpened)
+
+  const symbol0 = positions[0].symbol0
+  const symbol1 = positions[0].symbol1
 
   return (
     <>
@@ -34,7 +37,7 @@ export const Pool = (props: PoolPropsType) => {
 
         <span className={s.part}>{name}</span>
 
-        <span className={s.part}>{`Liqudity: `}</span>
+        <span className={s.part}>{`LIQUIDITY: ${getLiquidityText({ symbol0, symbol1, liquidity })}`}</span>
 
         {/* <span className={s.part}>{`Fees: `}</span> */}
       </div>

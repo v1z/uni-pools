@@ -17,5 +17,7 @@ export const MainPage = () => (
         <List />
       </Container>
     </main>
+
+    {/* TODO: footer */}
   </div>
 )

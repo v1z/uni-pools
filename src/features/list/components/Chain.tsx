@@ -23,9 +23,11 @@ export const Chain = (props: ChainPropsType) => {
 
       <ul>
         {poolNames.map((poolName) => {
+          const pool = pools[poolName]
+
           return (
             <li key={poolName} className={s.pool}>
-              <Pool name={poolName} positions={pools[poolName]} />
+              <Pool name={poolName} positions={pool['positions']} liquidity={pool['liquidity']} />
             </li>
           )
         })}

@@ -1,7 +1,5 @@
-import { getTokenSymbol, isTokenSupported, getFormattedAmount } from '../../../shared/utils'
-import type { PositionType, SupportedChainsType } from '../../../types'
-
-export type SortedByPoolType = Record<string, PositionType[]>
+import { getTokenSymbol, isTokenSupported, getFormattedAmount, addLiquidity } from '../../../shared/utils'
+import type { PositionType, SortedPositionsType, SortedByPoolType, SupportedChainsType } from '../types'
 
 // TODO: tests
 export const filterBySupportedTokens = (positions: PositionType[]): PositionType[] => {
@@ -14,15 +12,26 @@ export const filterBySupportedTokens = (positions: PositionType[]): PositionType
 
 export const sortByPool = (positions: PositionType[]): SortedByPoolType => {
   return positions.reduce((acc, item) => {
-    const { chain, token0, token1, fee } = item
+    const { chain, token0, token1, fee, liquidity } = item
 
     const symbol0 = getTokenSymbol(chain, token0)
     const symbol1 = getTokenSymbol(chain, token1)
 
     const poolName = `${symbol0} / ${symbol1} - ${fee}%`
-    const poolItems = acc[poolName] || []
 
-    return { ...acc, [poolName]: [...poolItems, item] }
+    const currentItems = acc[poolName]
+      ? acc[poolName]['positions']
+      : []
+
+    const positions = [...currentItems, item]
+
+    const currentLiquidity = acc[poolName]
+      ? acc[poolName]['liquidity']
+      : undefined
+
+    const poolLiquidity = addLiquidity(currentLiquidity, liquidity)
+
+    return { ...acc, [poolName]: {liquidity: poolLiquidity, positions} }
   }, {} as SortedByPoolType)
 }
 
@@ -45,8 +54,6 @@ export const sortByChain = (positions: PositionType[]): SortedByChainPositionsTy
   }, {} as SortedByChainPositionsType)
 }
 
-export type SortedPositionsType = Record<SupportedChainsType, SortedByPoolType>
-
 export const sortPositions = (positions: PositionType[]): SortedPositionsType => {
   const filteredPositions = filterBySupportedTokens(positions)
 
@@ -63,9 +70,7 @@ export const sortPositions = (positions: PositionType[]): SortedPositionsType =>
 }
 
 // TODO: test
-export const getLiquidityText = (position: PositionType): string => {
-  const {symbol0, symbol1, liquidity} = position
-
+export const getLiquidityText = ({symbol0, symbol1, liquidity}: {symbol0: PositionType['symbol0'], symbol1: PositionType['symbol1'], liquidity: PositionType['liquidity']}): string => {
   if (!liquidity) {
     return ''
   }

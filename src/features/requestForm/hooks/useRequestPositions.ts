@@ -8,6 +8,7 @@ type EndpoinType = {
   uniNFTObserver: string
 }
 
+// TODO: move to backend server
 const ENDPOINTS: Record<SupportedChainsType, EndpoinType> = {
   Base: {
     infura: 'https://base-mainnet.infura.io/v3/',
