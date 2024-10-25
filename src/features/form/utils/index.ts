@@ -128,6 +128,11 @@ export const getLiquidity = (position: RawPositionType, prices: TokenPricesType)
 
 export const getUncollectedFees = (position: RawPositionType): TokensPairType => {
   const {chain, token0: t0, token1: t1, uncollectedFees} = position
+
+  if (!uncollectedFees) {
+    return undefined
+  }
+
   const [amount0, amount1] = uncollectedFees
 
   const a0 = Number(amount0._hex)

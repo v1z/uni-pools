@@ -20,7 +20,7 @@ export type RawPositionType = {
   tokensOwed0: HexValueType
   tokensOwed1: HexValueType
   chain: SupportedChainsType
-  uncollectedFees: HexValueType[]
+  uncollectedFees?: HexValueType[]
 }
 
 export type { PositionType, PriceRangeType, SupportedChainsType, TokenPricesType, TokensPairType }

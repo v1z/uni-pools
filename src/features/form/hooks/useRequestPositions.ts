@@ -2,7 +2,7 @@
 const {abi} = require('@uniswap/v3-periphery/artifacts/contracts/NonfungiblePositionManager.sol/NonfungiblePositionManager.json');
 import {ethers} from 'ethers'
 
-import type { RawPositionType, SupportedChainsType } from '../types'
+import type { HexValueType, RawPositionType, SupportedChainsType } from '../types'
 
 import mockData from './mock'
 
@@ -38,28 +38,40 @@ export const useRequestPositions = async (userAddress: string): Promise<RawPosit
 
     const balance = await contract.balanceOf(userAddress)
 
-    const tokenPromises = []
+    const tokenIdPromises: Promise<RawPositionType['tokenId']>[] = []
 
     for (let i = 0; i < balance; i++) {
-      tokenPromises.push(contract.tokenOfOwnerByIndex(userAddress, i))
+      tokenIdPromises.push(contract.tokenOfOwnerByIndex(userAddress, i))
     }
 
-    const tokenIds = await Promise.all(tokenPromises)
+    const tokenIds = await Promise.all(tokenIdPromises)
 
-    const positionPromises = tokenIds.map((tokenId) => contract.positions(tokenId))
+    const positionPromises: Promise<Omit<RawPositionType, 'tokenId'>>[] = tokenIds.map((tokenId) => contract.positions(tokenId))
     const positionsData = await Promise.all(positionPromises)
 
-    const feePromises = tokenIds.map((tokenId) => contract.callStatic.collect({
-      tokenId,
-      recipient: userAddress,
-      amount0Max: MAX,
-      amount1Max: MAX
-    }))
+    const chainPostions: RawPositionType[] = positionsData.map((position, index) => ({ tokenId: tokenIds[index], ...position, chain }))
+
+    const nonEmptyPositions = chainPostions.filter(({liquidity}) => liquidity._hex !== '0x00')
+    const emptyPositions = chainPostions.filter(({liquidity}) => liquidity._hex === '0x00')
+
+    // request fees only for nonEmptyPositons
+    const feePromises = nonEmptyPositions
+      .map(({tokenId}) => contract.callStatic.collect({
+        tokenId,
+        recipient: userAddress,
+        amount0Max: MAX,
+        amount1Max: MAX
+      }))
+
     const feeData = await Promise.all(feePromises)
 
-    positionsData.forEach((position, index) => {
-      positions.push({ tokenId: tokenIds[index], ...position, chain, uncollectedFees: feeData[index] })
-    })
+    const positionsWithFees = nonEmptyPositions
+      .map((pos, index) => ({
+        ...pos,
+        uncollectedFees: feeData[index]
+      }))
+
+    positions.push(...positionsWithFees, ...emptyPositions)
   }
 
   return positions
