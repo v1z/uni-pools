@@ -25,23 +25,18 @@ export const Item = (props: PositionType) => {
 
       <div className={s.content}>
         <span className={s.part}>
-          {`Range: `}
           {getFormattedAmount(range.lower)}
           {' - '}
           {getFormattedAmount(range.upper)}
         </span>
 
-        {liquidity && (
-          <span className={s.part}>{`Liquidity: ${getTokensToText({ symbol0, symbol1, pair: liquidity })}`}</span>
-        )}
+        <span className={s.part}>{`${getTokensToText({ symbol0, symbol1, pair: liquidity })}`}</span>
 
-        {uncollectedFees && (
-          <span className={s.part}>{`Fees: ${getTokensToText({
-            symbol0,
-            symbol1,
-            pair: uncollectedFees,
-          })}`}</span>
-        )}
+        <span className={s.part}>{`${getTokensToText({
+          symbol0,
+          symbol1,
+          pair: uncollectedFees,
+        })}`}</span>
       </div>
     </div>
   )

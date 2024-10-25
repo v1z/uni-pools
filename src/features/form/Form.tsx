@@ -49,8 +49,7 @@ export const Form = () => {
         <h4 className={s.title}>WHY</h4>
 
         <p className={s.subtitle}>
-          Because default Uniswap UX&nbsp;sucks and DeBank doesn’t&nbsp;show the range of&nbsp;the positions
-          as&nbsp;well as&nbsp;cumulative fees if&nbsp;there are multiple positions in&nbsp;one pool
+          Because Uniswap UI&nbsp;sucks, DeBank lacks important data and&nbsp;Revert Finance just bad for&nbsp;your eyes
         </p>
 
         <div className={s.inputWrapper}>
