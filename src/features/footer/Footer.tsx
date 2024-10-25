@@ -14,12 +14,9 @@ export const Footer = () => {
 
           {/* TODO: EVM / SOL wallets */}
 
-          <span>
-            made by{' '}
-            <a href="https://github.com/v1z" target="_blank" className={s.link}>
-              v1z
-            </a>
-          </span>
+          <a href="https://github.com/v1z" target="_blank" className={s.link}>
+            made by
+          </a>
         </div>
       </Container>
     </footer>

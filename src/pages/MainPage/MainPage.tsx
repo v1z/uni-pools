@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { Header } from '../../features/header/Header'
-import { Footer } from '../../features/footer/Footer'
+// import { Footer } from '../../features/footer/Footer'
 import { List } from '../../features/list/List'
 import { Form } from '../../features/form/Form'
 import { Container } from '../../shared/components/Container'
@@ -19,6 +19,6 @@ export const MainPage = () => (
       </Container>
     </main>
 
-    <Footer />
+    {/* <Footer /> */}
   </div>
 )

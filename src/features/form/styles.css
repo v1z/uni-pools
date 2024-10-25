@@ -35,4 +35,53 @@
   align-items: center;
   margin-top: 22px;
   margin-bottom: 30px;
+  width: 100%;
+  justify-content: center;
+}
+
+.input {
+  position: relative;
+  padding: 8px 12px;
+  margin-right: 12px;
+  flex-grow: 1;
+
+  &::placeholder {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    opacity: .2;
+    transform: translateY(-50%);
+  }
+
+  &:focus::placeholder {
+    opacity: 0;
+  }
+}
+
+.button {
+  padding: 8px 24px;
+}
+
+.button,
+.input {
+  background-color: transparent;
+  border: 2px solid black;
+  border-radius: 8px;
+  font: inherit;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition-property: opacity, background-color;
+  transition-duration: .2s;
+
+  &:hover,
+  &:focus {
+    background-color: #fff;
+  }
+
+  &_disabled {
+    opacity: .4;
+  }
 }

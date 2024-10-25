@@ -38,7 +38,6 @@
     ]
   },
   "dependencies": {
-    "@mui/material": "^6.1.1",
     "@reduxjs/toolkit": "^2.2.7",
     "@uniswap/v3-periphery": "^1.4.4",
     "axios": "^1.7.7",

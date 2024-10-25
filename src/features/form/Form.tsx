@@ -1,7 +1,5 @@
 import React, { useState } from 'react'
-
-import Button from '@mui/material/Button'
-import TextField from '@mui/material/TextField'
+import cn from 'classnames'
 
 import { positionsSettled } from '../../store/slices/positionsSlice'
 import { selectPrices } from '../../store/slices/pricesSlice'
@@ -56,32 +54,26 @@ export const Form = () => {
         </p>
 
         <div className={s.inputWrapper}>
-          <TextField
-            label="Address"
-            variant="outlined"
-            size="small"
+          <input
+            type="text"
+            placeholder="0x72040636d39713133b201957E0Fe9A801C056F00"
             onChange={handleInputChange}
-            sx={{
-              marginRight: '16px',
-              flexGrow: 1,
-              width: '100%',
-              maxWidth: '440px',
-            }}
             disabled={isLoading}
+            className={cn(s.input, {
+              [s.input_disabled]: isLoading,
+            })}
           />
 
-          <Button
-            variant="contained"
+          <button
             type="button"
-            size="medium"
             onClick={handleSubmit}
-            sx={{
-              width: '100px',
-            }}
             disabled={isLoading}
+            className={cn(s.button, {
+              [s.button_disabled]: isLoading,
+            })}
           >
-            Find
-          </Button>
+            FIND
+          </button>
         </div>
 
         <h4 className={s.title}>Limitations</h4>
