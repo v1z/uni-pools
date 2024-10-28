@@ -1,20 +1,38 @@
+:root {
+  --min-height: 42px;
+}
+
 .root {
-  padding: 48px 0;
+  padding: 24px 0;
+
+  @media (--tablet-large) {
+    padding: 48px 0;
+  }
 }
 
 .chainItem {
   &:not(:first-child) {
-    margin-top: 24px;
+    margin-top: 12px;
+
+    @media (--tablet-large) {
+      margin-top: 24px;
+    }
   }
 }
 
 .chainTitle {
   margin-top: 0;
   margin-bottom: 8px;
-  font-size: 32px;
+  font-size: 24px;
+
+  @media (--tablet-large) {
+    font-size: 36px;
+  }
 }
 
 .pool {
+  display: flex;
+  flex-direction: column;
   border: 2px solid #333333;
 
   &:not(:first-child) {
@@ -24,6 +42,7 @@
 
 .poolWrapper {
   display: flex;
+  align-items: center;
   background-color: var(--color-secondary);
   font-weight: 500;
 }
@@ -38,8 +57,6 @@
   font-size: 0;
   border: none;
   width: 40px;
-  height: 40px;
-  box-shadow: 2px 0px 0px 0px #333;
   background-color: transparent;
   cursor: pointer;
   display: flex;
@@ -73,6 +90,7 @@
 
 .position {
   display: flex;
+  align-items: center;
   background-color: #fff;
   border-top: 2px solid #333333;
 
@@ -82,40 +100,36 @@
 }
 
 .content {
-  display: flex;
-  align-items: center;
-  width: 100%;
-  font-size: 16px;
-}
-
-.part {
   position: relative;
   display: flex;
   align-items: center;
-  width: 33.33%;
+  width: 100%;
   height: 100%;
-  flex-grow: 0;
-  flex-shrink: 0;
-  padding-left: 12px;
+  box-shadow: -2px 0px 0px 0px #333;
+
+  @media (--desktop) {
+    font-size: 18px;
+  }
+}
+
+.part {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  width: 33.33%;
+  flex-grow: 1;
+  padding: 12px;
   box-sizing: border-box;
 
   &:not(:first-child)::before {
     content: '';
     position: absolute;
-    left: 0;
     top: 0;
     display: block;
     width: 2px;
     height: 100%;
+    transform: translateX(-12px);
     background-color: #333333;
   }
-}
-
-.dot {
-  margin-right: 8px;
-  margin-left: 8px;
-  width: 6px;
-  height: 6px;
-  background-color: #333333;
-  border-radius: 50%;
 }

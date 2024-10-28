@@ -37,6 +37,7 @@ export const Pool = (props: PoolPropsType) => {
       <div className={s.poolWrapper}>
         <button type="button" onClick={() => handleTogglePool()} className={s.actionControl}>
           {isOpened ? 'close' : 'open'}
+
           <ToggleIcon
             className={cn(s.actionIcon, {
               [s.actionIcon_reverse]: isOpened,
@@ -49,22 +50,23 @@ export const Pool = (props: PoolPropsType) => {
             {name}
             {range && (
               <>
-                <div className={s.dot} />
-                {getFormattedAmount(range.lower)}
-                {' - '}
-                {getFormattedAmount(range.upper)}
+                <span>
+                  {getFormattedAmount(range.lower)}
+                  {' - '}
+                  {getFormattedAmount(range.upper)}
+                </span>
               </>
             )}
           </span>
 
           <span className={s.part}>
             {'Liquidity: '}
-            {getTokensToText({ token0, token1, chain, pair: liquidity })}
+            <span className={s.pairValue}>{getTokensToText({ token0, token1, chain, pair: liquidity })}</span>
           </span>
 
           <span className={s.part}>
             {'Fees: '}
-            {getTokensToText({ token0, token1, chain, pair: fees })}
+            <span className={s.pairValue}>{getTokensToText({ token0, token1, chain, pair: fees })}</span>
           </span>
         </div>
       </div>
