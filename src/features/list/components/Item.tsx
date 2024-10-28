@@ -9,7 +9,7 @@ import s from '../styles.css'
 import LinkIcon from '../icons/link.svg'
 
 export const Item = (props: PositionType) => {
-  const { url, range, liquidity, uncollectedFees, symbol0, symbol1 } = props
+  const { url, range, liquidity, uncollectedFees, token0, token1, chain } = props
 
   return (
     <div
@@ -30,11 +30,12 @@ export const Item = (props: PositionType) => {
           {getFormattedAmount(range.upper)}
         </span>
 
-        <span className={s.part}>{`${getTokensToText({ symbol0, symbol1, pair: liquidity })}`}</span>
+        <span className={s.part}>{`${getTokensToText({ token0, token1, chain, pair: liquidity })}`}</span>
 
         <span className={s.part}>{`${getTokensToText({
-          symbol0,
-          symbol1,
+          token0,
+          token1,
+          chain,
           pair: uncollectedFees,
         })}`}</span>
       </div>

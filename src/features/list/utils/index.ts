@@ -1,4 +1,4 @@
-import { getTokenSymbol, isTokenSupported, getFormattedAmount, addPairs } from '../../../shared/utils'
+import { getTokenSymbol, isTokenSupported, getFormattedAmount, addPairs, getTokenFixed } from '../../../shared/utils'
 import type { PositionType, SortedPositionsType, SortedByPoolType, SupportedChainsType, TokensPairType, PoolType } from '../types'
 
 // TODO: tests
@@ -85,15 +85,27 @@ export const sortPositions = (positions: PositionType[]): SortedPositionsType =>
 }
 
 // TODO: test
-export const getTokensToText = ({symbol0, symbol1, pair}: {symbol0: PositionType['symbol0'], symbol1: PositionType['symbol1'], pair: TokensPairType}): string => {
+export const getTokensToText = ({token0, token1, chain, pair}:
+  {
+    token0: PositionType['token0'],
+    token1: PositionType['token1'],
+    chain: PositionType['chain'],
+    pair: TokensPairType
+  }): string => {
   if (!pair) {
     return '-- / --'
   }
 
-  const {token0, token1} = pair
+  const {token0: amount0, token1: amount1} = pair
 
-  const part0 = token0 ? `${getFormattedAmount(token0)} ${symbol0}` : ''
-  const part1 = token1 ? `${getFormattedAmount(token1)} ${symbol1}` : ''
+  const symbol0 = getTokenSymbol(chain, token0)
+  const symbol1 = getTokenSymbol(chain, token1)
+
+  const val0 = Number(amount0.toFixed(getTokenFixed(chain, token0)))
+  const val1 = Number(amount1.toFixed(getTokenFixed(chain, token1)))
+
+  const part0 = val0 ? `${getFormattedAmount(val0)} ${symbol0}` : ''
+  const part1 = val1 ? `${getFormattedAmount(val1)} ${symbol1}` : ''
   const hasBoth = !!part0 && !!part1
 
   return `${part0}${hasBoth ? ' / ' : ''}${part1}`

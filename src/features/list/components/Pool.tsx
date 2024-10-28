@@ -23,8 +23,7 @@ export const Pool = (props: PoolPropsType) => {
   const handleTogglePool = () => setIsOpened(!isOpened)
   const handleToggleEmpty = () => setIsEmptyOpened(!isEmptyOpened)
 
-  const symbol0 = positions[0].symbol0
-  const symbol1 = positions[0].symbol1
+  const { token0, token1, chain } = positions[0]
 
   const nonEmptyPositions = [] as PoolType['positions']
   const emptyPositions = [] as PoolType['positions']
@@ -60,12 +59,12 @@ export const Pool = (props: PoolPropsType) => {
 
           <span className={s.part}>
             {'Liquidity: '}
-            {getTokensToText({ symbol0, symbol1, pair: liquidity })}
+            {getTokensToText({ token0, token1, chain, pair: liquidity })}
           </span>
 
           <span className={s.part}>
             {'Fees: '}
-            {getTokensToText({ symbol0, symbol1, pair: fees })}
+            {getTokensToText({ token0, token1, chain, pair: fees })}
           </span>
         </div>
       </div>
