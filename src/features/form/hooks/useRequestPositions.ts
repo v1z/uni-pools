@@ -28,7 +28,7 @@ const SUPPORTED_CHAINS: SupportedChainsType[] = ['Arbitrum', 'Base']
 const MAX = "340282366920938463463374607431768211455"
 
 export const useRequestPositions = async (userAddress: string): Promise<RawPositionType[]> => {
-  return mockData
+  // return mockData
   const positions: RawPositionType[] = []
 
   for (const chain of SUPPORTED_CHAINS) {
