@@ -35,15 +35,17 @@ export const Pool = (props: PoolPropsType) => {
   return (
     <>
       <div className={s.poolWrapper}>
-        <button type="button" onClick={() => handleTogglePool()} className={s.actionControl}>
-          {isOpened ? 'close' : 'open'}
+        <div className={s.actionWrapper}>
+          <button type="button" onClick={() => handleTogglePool()} className={s.actionControl} tabIndex={0}>
+            {isOpened ? 'close' : 'open'}
 
-          <ToggleIcon
-            className={cn(s.actionIcon, {
-              [s.actionIcon_reverse]: isOpened,
-            })}
-          />
-        </button>
+            <ToggleIcon
+              className={cn(s.actionIcon, {
+                [s.actionIcon_reverse]: isOpened,
+              })}
+            />
+          </button>
+        </div>
 
         <div className={s.content}>
           <span className={s.part}>
@@ -85,18 +87,21 @@ export const Pool = (props: PoolPropsType) => {
         {emptyPositions.length > 0 && (
           <li>
             {nonEmptyPositions.length > 0 && (
-              <div className={s.emptyWrapper}>
-                <button type="button" onClick={() => handleToggleEmpty()} className={s.actionControl}>
-                  {isEmptyOpened ? 'close' : 'open'}
-                  <ToggleIcon
-                    className={cn(s.actionIcon, {
-                      [s.actionIcon_reverse]: isEmptyOpened,
-                    })}
-                  />
-                </button>
+              <div className={s.position}>
+                <div className={s.actionWrapper}>
+                  <button type="button" onClick={() => handleToggleEmpty()} className={s.actionControl} tabIndex={0}>
+                    {isEmptyOpened ? 'close' : 'open'}
+
+                    <ToggleIcon
+                      className={cn(s.actionIcon, {
+                        [s.actionIcon_reverse]: isEmptyOpened,
+                      })}
+                    />
+                  </button>
+                </div>
 
                 <div className={s.content}>
-                  <span className={s.part}>Positions without liquidity</span>
+                  <span className={s.part}>Ranges without liquidity</span>
                 </div>
               </div>
             )}

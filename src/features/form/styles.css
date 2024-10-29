@@ -1,10 +1,11 @@
 :root {
   --form-width: 540px;
+  --text-width: 440px;
   --btn-width: 140px;
 }
 
 .root {
-  padding-top: 48px;
+  padding-top: 72px;
   padding-bottom: 24px;
   margin: 0 auto;
   width: var(--form-width);
@@ -31,11 +32,12 @@
 }
 
 .title {
-  margin-bottom: 16px;
+  margin-bottom: 8px;
   font-size: 32px;
 
   @media (--tablet-large) {
-    font-size: 44px;
+    margin-bottom: 16px;
+    font-size: 38px;
   }
 }
 
@@ -45,8 +47,13 @@
   margin-bottom: 8px;
 
   @media (--tablet-large) {
-    font-size: 24px;
+    font-size: 22px;
   }
+}
+
+.title,
+.subtitle {
+  max-width: var(--text-width);
 }
 
 .inputWrapper {
@@ -58,11 +65,8 @@
   width: 100%;
   justify-content: center;
 
-  @media (--tablet) {
-    flex-direction: row;
-  }
-
   @media (--tablet-large) {
+    flex-direction: row;
     margin-top: 22px;
     margin-bottom: 30px;
   }
@@ -71,22 +75,20 @@
 .input {
   position: relative;
   padding: 8px 12px;
-  font-size: 12px;
+  font-size: 14px;
   flex-grow: 1;
   margin-bottom: 8px;
   width: 100%;
+  cursor: text;
+  max-width: 370px;
 
-  @media (--tablet) {
-    font-size: 14px;
+  @media (--tablet-large) {
     margin-right: 12px;
     margin-bottom: 0;
   }
 
-  @media (--tablet-large) {
-    font-size: 16px;
-  }
-
-  &::placeholder {
+  &::placeholder,
+  &::-webkit-input-placeholder {
     content: '';
     display: block;
     position: absolute;
@@ -104,8 +106,9 @@
 .button {
   padding: 8px 24px;
   width: var(--btn-width);
+  cursor: pointer;
 
-  @media (--tablet) {
+  @media (--tablet-large) {
     width: auto;
   }
 }
@@ -117,9 +120,11 @@
   border-radius: 8px;
   font-family: inherit;
   font-weight: 500;
-  cursor: pointer;
+  color: inherit;
   transition-property: opacity, background-color;
   transition-duration: .2s;
+  outline: none;
+  user-select: none;
 
   &:hover,
   &:focus {

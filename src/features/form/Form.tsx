@@ -55,7 +55,7 @@ export const Form = () => {
         <div className={s.inputWrapper}>
           <input
             type="text"
-            placeholder="0x72040636d39713133b201957E0Fe9A801C056F00"
+            placeholder="0x0000000000000000000000000000000000000000"
             onChange={handleInputChange}
             disabled={isLoading}
             className={cn(s.input, {
@@ -70,6 +70,7 @@ export const Form = () => {
             className={cn(s.button, {
               [s.button_disabled]: isLoading,
             })}
+            tabIndex={0}
           >
             FIND
           </button>

@@ -18,10 +18,12 @@ export const Item = (props: PositionType) => {
         [s.position_active]: liquidity?.token0 && liquidity.token1,
       })}
     >
-      <a href={url} target="_blank" className={s.actionControl} rel="noreferrer">
-        {url}
-        <LinkIcon className={s.actionIcon} />
-      </a>
+      <div className={s.actionWrapper}>
+        <a href={url} target="_blank" className={s.actionControl} rel="noreferrer">
+          {url}
+          <LinkIcon className={s.actionIcon} />
+        </a>
+      </div>
 
       <div className={s.content}>
         <span className={s.part}>
