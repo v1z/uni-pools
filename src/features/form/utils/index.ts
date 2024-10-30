@@ -73,7 +73,7 @@ const CHAIN_URL_MAP: Record<SupportedChainsType, string> = {
 export const getPoolURL = (position: RawPositionType): string => {
   const chain = CHAIN_URL_MAP[position.chain]
 
-  return `${POOL_URL_BASE}${Number(position.tokenId._hex)}?chain=${chain}`
+  return `${POOL_URL_BASE}${Number(position.tokenId.hex)}?chain=${chain}`
 }
 
 export const getLiquidity = (position: RawPositionType, prices: TokenPricesType): TokensPairType => {
@@ -89,7 +89,7 @@ export const getLiquidity = (position: RawPositionType, prices: TokenPricesType)
   const symbol1 = getTokenSymbol(chain, token1)
 
   const usdPrice = getTokenPrice(symbol0, symbol1, prices)
-  const liquidity = Number(position.liquidity._hex)
+  const liquidity = Number(position.liquidity.hex)
 
   if (!usdPrice || !liquidity) {
     return undefined
@@ -135,8 +135,8 @@ export const getUncollectedFees = (position: RawPositionType): TokensPairType =>
 
   const [amount0, amount1] = uncollectedFees
 
-  const a0 = Number(amount0._hex)
-  const a1 = Number(amount1._hex)
+  const a0 = Number(amount0.hex)
+  const a1 = Number(amount1.hex)
 
   if (a0 === 0 && a1 === 0) {
     return undefined

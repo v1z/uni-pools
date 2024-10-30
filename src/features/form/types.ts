@@ -1,8 +1,8 @@
 import type { PositionType, PriceRangeType, SupportedChainsType, TokenPricesType, TokensPairType } from '../../types'
 
 export type HexValueType = {
-  _isBigNumber: boolean
-  _hex: string
+  isBigNumber: boolean
+  hex: string
 }
 
 export type RawPositionType = {

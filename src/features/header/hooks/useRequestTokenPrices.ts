@@ -4,12 +4,13 @@ import type { TokenPricesType, RawPricesType } from '../types'
 
 import mockData from './mock'
 
-const ENDPOINT = 'https://uni-server-artem-glukhanko.vercel.app/api/get-token-prices'
+const API_ENDPOINT = `${process.env.ENDPOINT}/get-token-prices`
+
 
 export const useRequestTokenPrices = async (): Promise<TokenPricesType> => {
-  // const rawData = mockData as RawPricesType
-  const rawData = await axios.get(ENDPOINT)
-    .then(res => res.data) as RawPricesType
+  const rawData = mockData as RawPricesType
+  // const rawData = await axios.get(API_ENDPOINT)
+  //   .then(res => res.data) as RawPricesType
 
   const result: TokenPricesType = {
     BTC: undefined,
