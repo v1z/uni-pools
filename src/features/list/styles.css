@@ -3,11 +3,7 @@
 }
 
 .root {
-  padding: 24px 0;
-
-  @media (--tablet-large) {
-    padding: 48px 0;
-  }
+  padding-bottom: 48px
 }
 
 .chainItem {

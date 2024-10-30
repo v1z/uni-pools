@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import cn from 'classnames'
 
 import { positionsSettled } from '../../store/slices/positionsSlice'
@@ -20,13 +20,24 @@ export const Form = () => {
   const handleRequestError = () => setStatus('error')
   const handleRequestFullfil = () => setStatus('fullfiled')
 
+  // retrive the last user address from localStorage for better UX
+  useEffect(() => {
+    const savedAddress = localStorage.getItem('userAddress')
+
+    !!savedAddress && setUserAddress(savedAddress)
+  }, [])
+
   const dispatch = useAppDispatch()
 
   const prices = useAppSelector(selectPrices)
 
   // TODO: add validation by regex
   const handleSubmit = () => {
+    // set form to loading styles
     handleRequestClick()
+
+    // save the userAddress for later calls
+    localStorage.setItem('userAddress', userAddress)
 
     useRequestPositions(userAddress)
       .then((rawPositions) => {
@@ -57,6 +68,7 @@ export const Form = () => {
             type="text"
             placeholder="0x0000000000000000000000000000000000000000"
             onChange={handleInputChange}
+            value={userAddress}
             disabled={isLoading}
             className={cn(s.input, {
               [s.input_disabled]: isLoading,
