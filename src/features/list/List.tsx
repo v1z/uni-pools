@@ -1,18 +1,26 @@
 import React from 'react'
 
-import { selectPositions } from '../../store/slices/positionsSlice'
+import { selectPositions, selectPositionsRequestStage } from '../../store/slices/positionsSlice'
 import { useAppSelector } from '../../store/store'
 import { SupportedChainsType } from '../../types'
 
-import { Chain } from './components/Chain'
+import { Chain, Skeletons } from './components'
 import { sortPositions } from './utils'
 
 import s from './styles.css'
 
 export const List = () => {
   const positions = useAppSelector(selectPositions)
+  const requestStatus = useAppSelector(selectPositionsRequestStage)
 
-  if (positions.length === 0) return null
+  if (requestStatus === 'awaiting') return null
+
+  if (requestStatus === 'fetching') {
+    return <Skeletons />
+  }
+
+  // TODO
+  if (requestStatus === 'failed') return <div>failed!</div>
 
   const sortedPositions = sortPositions(positions)
   const chains = Object.keys(sortedPositions)

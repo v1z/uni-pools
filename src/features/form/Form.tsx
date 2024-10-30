@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import cn from 'classnames'
 
-import { positionsSettled } from '../../store/slices/positionsSlice'
+import {
+  positionsSettled,
+  positionsRequestStageChanged,
+  selectPositionsRequestStage,
+} from '../../store/slices/positionsSlice'
 import { selectPrices } from '../../store/slices/pricesSlice'
 import { useAppDispatch, useAppSelector } from '../../store/store'
 
@@ -10,15 +14,15 @@ import { getFormattedPosition } from './utils'
 
 import s from './styles.css'
 
-export type StatusType = 'awaiting' | 'requesting' | 'error' | 'fullfiled'
-
 export const Form = () => {
   const [userAddress, setUserAddress] = useState<string>('')
-  const [status, setStatus] = useState<StatusType>('awaiting')
+  const status = useAppSelector(selectPositionsRequestStage)
 
-  const handleRequestClick = () => setStatus('requesting')
-  const handleRequestError = () => setStatus('error')
-  const handleRequestFullfil = () => setStatus('fullfiled')
+  const dispatch = useAppDispatch()
+
+  const handleRequestClick = () => dispatch(positionsRequestStageChanged('fetching'))
+  const handleRequestError = () => dispatch(positionsRequestStageChanged('failed'))
+  const handleRequestFullfil = () => dispatch(positionsRequestStageChanged('fullfiled'))
 
   // retrive the last user address from localStorage for better UX
   useEffect(() => {
@@ -26,8 +30,6 @@ export const Form = () => {
 
     !!savedAddress && setUserAddress(savedAddress)
   }, [])
-
-  const dispatch = useAppDispatch()
 
   const prices = useAppSelector(selectPrices)
 
@@ -52,7 +54,7 @@ export const Form = () => {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => setUserAddress(e.target.value)
 
-  const isLoading = status === 'requesting'
+  const isLoading = status === 'fetching'
 
   return (
     <section className={s.root}>
@@ -63,17 +65,19 @@ export const Form = () => {
           Because Uniswap UI&nbsp;sucks, DeBank lacks important data and&nbsp;Revert Finance just bad for&nbsp;your eyes
         </p>
 
-        <div className={s.inputWrapper}>
-          <input
-            type="text"
-            placeholder="0x0000000000000000000000000000000000000000"
-            onChange={handleInputChange}
-            value={userAddress}
-            disabled={isLoading}
-            className={cn(s.input, {
-              [s.input_disabled]: isLoading,
-            })}
-          />
+        <div className={s.controlsWrapper}>
+          <div className={s.inputWrapper}>
+            <input
+              type="text"
+              placeholder="0x0000000000000000000000000000000000000000"
+              onChange={handleInputChange}
+              value={userAddress}
+              disabled={isLoading}
+              className={cn(s.input, {
+                [s.input_disabled]: isLoading,
+              })}
+            />
+          </div>
 
           <button
             type="button"
@@ -86,6 +90,14 @@ export const Form = () => {
           >
             FIND
           </button>
+
+          <span
+            className={cn(s.inputStatus, {
+              [s.inputStatus_visible]: isLoading,
+            })}
+          >
+            LOADING DATA...
+          </span>
         </div>
 
         <h4 className={s.title}>Limitations</h4>

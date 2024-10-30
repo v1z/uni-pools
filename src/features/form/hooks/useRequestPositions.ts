@@ -10,7 +10,7 @@ const API_ENDPOINT = `${process.env.ENDPOINT}/get-positions`
 export const useRequestPositions = async (userAddress: string): Promise<RawPositionType[]> => {
   return new Promise((res) => setTimeout(() => {
     return res(mockData)
-  }, 1500))
+  }, 2500))
 
   const response = await axios.post(API_ENDPOINT, {
     userAddress
