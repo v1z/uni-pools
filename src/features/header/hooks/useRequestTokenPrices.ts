@@ -8,9 +8,9 @@ const API_ENDPOINT = `${process.env.ENDPOINT}/get-token-prices`
 
 
 export const useRequestTokenPrices = async (): Promise<TokenPricesType> => {
-  const rawData = mockData as RawPricesType
-  // const rawData = await axios.get(API_ENDPOINT)
-  //   .then(res => res.data) as RawPricesType
+  // const rawData = mockData as RawPricesType
+  const rawData = await axios.get(API_ENDPOINT)
+    .then(res => res.data) as RawPricesType
 
   const result: TokenPricesType = {
     BTC: undefined,
