@@ -88,7 +88,7 @@
 
 .input {
   position: relative;
-  padding: 8px 12px;
+  padding: 12px;
   font-size: 14px;
   cursor: text;
   width: 100%;
@@ -127,7 +127,7 @@
 }
 
 .button {
-  padding: 8px 24px;
+  padding: 12px 32px;
   width: var(--btn-width);
   cursor: pointer;
 
