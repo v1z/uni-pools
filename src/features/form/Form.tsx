@@ -103,7 +103,7 @@ export const Form = () => {
         <h4 className={s.title}>Limitations</h4>
         <p className={s.subtitle}>At&nbsp;the moment you can check only the following tokens and chais:</p>
         <p className={s.subtitle}>Arbitrum - USDT / USDC / ETH / WBTC</p>
-        <p className={s.subtitle}>Base - USDT / ETH</p>
+        {/* <p className={s.subtitle}>Base - USDT / ETH</p> */}
       </form>
     </section>
   )
