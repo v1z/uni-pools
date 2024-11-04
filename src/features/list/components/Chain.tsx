@@ -15,7 +15,19 @@ type ChainPropsType = {
 export const Chain = (props: ChainPropsType) => {
   const { name, pools } = props
 
-  const poolNames = Object.keys(pools)
+  // TODO: add sorting py liquidity USD value
+  // TODO: make it prettier
+  // empty pools go last
+  const poolNames = Object.keys(pools).sort((a, b) => {
+    const liqA = pools[a].liquidity
+    const liqB = pools[b].liquidity
+
+    if (liqA === undefined) return 1
+
+    if (liqB === undefined) return -1
+
+    return 1
+  })
 
   return (
     <li className={s.chainItem}>
