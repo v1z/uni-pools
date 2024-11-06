@@ -4,8 +4,11 @@ import { createSlice } from '@reduxjs/toolkit'
 import type { RootState } from '../store'
 import type { TokenPricesType } from '../../types'
 
+type PricesRequestStageType = 'awaiting' | 'fetching' | 'failed' | 'fullfiled'
+
 type PricesState = {
   value: TokenPricesType
+  requestStage: PricesRequestStageType
 }
 
 const initialState: PricesState = {
@@ -14,6 +17,7 @@ const initialState: PricesState = {
     ETH: undefined,
     USD: 1
   },
+  requestStage: 'awaiting'
 }
 
 const pricesSlice = createSlice({
@@ -23,11 +27,15 @@ const pricesSlice = createSlice({
     pricesSettled: (state, action: PayloadAction<TokenPricesType>) => {
       state.value = {...action.payload, USD: 1}
     },
+    pricesRequestStateChanged: (state, action: PayloadAction<PricesRequestStageType>) => {
+      state.requestStage = action.payload
+    }
   },
 })
 
-export const { pricesSettled } = pricesSlice.actions
+export const { pricesSettled, pricesRequestStateChanged } = pricesSlice.actions
 
 export const selectPrices = (state: RootState) => state.prices.value
+export const selectPricesRequestStage = (state: RootState) => state.prices.requestStage
 
 export default pricesSlice.reducer

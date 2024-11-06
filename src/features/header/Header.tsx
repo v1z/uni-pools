@@ -1,8 +1,14 @@
 import React, { useEffect } from 'react'
+import cn from 'classnames'
 
-import { Container } from '../../shared/components/Container'
+import { Container } from '../../shared/components'
 import { getFormattedAmount } from '../../shared/utils'
-import { pricesSettled, selectPrices } from '../../store/slices/pricesSlice'
+import {
+  pricesSettled,
+  pricesRequestStateChanged,
+  selectPrices,
+  selectPricesRequestStage,
+} from '../../store/slices/pricesSlice'
 import { useAppDispatch, useAppSelector } from '../../store/store'
 
 import { useRequestTokenPrices } from './hooks/useRequestTokenPrices'
@@ -10,15 +16,39 @@ import { useRequestTokenPrices } from './hooks/useRequestTokenPrices'
 import s from './styles.css'
 
 const NO_PRICE_TEXT = '-- / --'
+const INTERVAL_TIME_SECONDS = 30
 
 export const Header = () => {
   const dispatch = useAppDispatch()
 
+  const handleRequestInitiation = () => dispatch(pricesRequestStateChanged('fetching'))
+  const handleRequestError = () => dispatch(pricesRequestStateChanged('failed'))
+  const handleRequestFullfil = () => dispatch(pricesRequestStateChanged('fullfiled'))
+
   useEffect(() => {
-    useRequestTokenPrices().then((prices) => dispatch(pricesSettled(prices)))
+    const fetchPrices = async () => {
+      try {
+        handleRequestInitiation()
+
+        const prices = await useRequestTokenPrices()
+
+        handleRequestFullfil()
+
+        dispatch(pricesSettled(prices))
+      } catch (error) {
+        handleRequestError()
+      }
+    }
+
+    fetchPrices()
+
+    const intervalId = setInterval(fetchPrices, INTERVAL_TIME_SECONDS * 1000)
+
+    return () => clearInterval(intervalId)
   }, [])
 
   const prices = useAppSelector(selectPrices)
+  const requestStatus = useAppSelector(selectPricesRequestStage)
 
   return (
     <header className={s.root}>
@@ -33,7 +63,14 @@ export const Header = () => {
             return (
               <li className={s.item} key={token}>
                 <span className={s.tokenName}>{`${token}:`}</span>
-                <span>{priceText}</span>
+
+                <span
+                  className={cn(s.tokenPrice, {
+                    [s.tokenPrice_fetching]: requestStatus === 'fetching',
+                  })}
+                >
+                  {priceText}
+                </span>
               </li>
             )
           })}

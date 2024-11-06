@@ -38,3 +38,9 @@
   margin-right: 8px;
   font-weight: 600;
 }
+
+.tokenPrice {
+  &_fetching {
+    opacity: .4;
+  }
+}
