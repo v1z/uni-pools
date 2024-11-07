@@ -91,9 +91,15 @@ export const getTokensToText = ({token0, token1, chain, pair}:
     token1: PositionType['token1'],
     chain: PositionType['chain'],
     pair: TokensPairType
-  }): string => {
+  }): {
+    part0: string
+    part1: string
+  } => {
   if (!pair) {
-    return '-- / --'
+    return {
+      part0: '',
+      part1: '',
+    }
   }
 
   const {token0: amount0, token1: amount1} = pair
@@ -106,9 +112,11 @@ export const getTokensToText = ({token0, token1, chain, pair}:
 
   const part0 = val0 ? `${getFormattedAmount(val0)} ${symbol0}` : ''
   const part1 = val1 ? `${getFormattedAmount(val1)} ${symbol1}` : ''
-  const hasBoth = !!part0 && !!part1
 
-  return `${part0}${hasBoth ? ' / ' : ''}${part1}`
+  return {
+    part0,
+    part1
+  }
 }
 
 // TODO: tests

@@ -32,6 +32,9 @@ export const Pool = (props: PoolPropsType) => {
     pos.liquidity ? nonEmptyPositions.push(pos) : emptyPositions.push(pos)
   })
 
+  const liquidityText = getTokensToText({ token0, token1, chain, pair: liquidity })
+  const feesText = getTokensToText({ token0, token1, chain, pair: fees })
+
   return (
     <>
       <div className={s.poolWrapper}>
@@ -48,7 +51,7 @@ export const Pool = (props: PoolPropsType) => {
         </div>
 
         <div className={s.content}>
-          <span className={s.part}>
+          <span className={s.part} style={{ width: '40%' }}>
             {name}
             {range && (
               <>
@@ -61,14 +64,16 @@ export const Pool = (props: PoolPropsType) => {
             )}
           </span>
 
-          <span className={s.part}>
-            {'Liquidity: '}
-            <span className={s.pairValue}>{getTokensToText({ token0, token1, chain, pair: liquidity })}</span>
+          <span className={s.part} style={{ width: '30%' }}>
+            {/* {'Liquidity: '} */}
+            <span className={s.pairValue}>{liquidityText.part0}</span>
+            <span className={s.pairValue}>{liquidityText.part1}</span>
           </span>
 
-          <span className={s.part}>
-            {'Fees: '}
-            <span className={s.pairValue}>{getTokensToText({ token0, token1, chain, pair: fees })}</span>
+          <span className={s.part} style={{ width: '30%' }}>
+            {/* {'Fees: '} */}
+            <span className={s.pairValue}>{feesText.part0}</span>
+            <span className={s.pairValue}>{feesText.part1}</span>
           </span>
         </div>
       </div>
@@ -85,30 +90,28 @@ export const Pool = (props: PoolPropsType) => {
         ))}
 
         {emptyPositions.length > 0 && (
-          <li>
-            {nonEmptyPositions.length > 0 && (
-              <div className={s.position}>
-                <div className={s.actionWrapper}>
-                  <button type="button" onClick={() => handleToggleEmpty()} className={s.actionControl} tabIndex={0}>
-                    {isEmptyOpened ? 'close' : 'open'}
+          <li className={s.emptyList}>
+            <div className={s.position}>
+              <div className={s.actionWrapper}>
+                <button type="button" onClick={() => handleToggleEmpty()} className={s.actionControl} tabIndex={0}>
+                  {isEmptyOpened ? 'close' : 'open'}
 
-                    <ToggleIcon
-                      className={cn(s.actionIcon, {
-                        [s.actionIcon_reverse]: isEmptyOpened,
-                      })}
-                    />
-                  </button>
-                </div>
-
-                <div className={s.content}>
-                  <span className={s.part}>Ranges without liquidity</span>
-                </div>
+                  <ToggleIcon
+                    className={cn(s.actionIcon, {
+                      [s.actionIcon_reverse]: isEmptyOpened,
+                    })}
+                  />
+                </button>
               </div>
-            )}
+
+              <div className={s.content}>
+                <span className={s.part}>Ranges without liquidity</span>
+              </div>
+            </div>
 
             <ul
               className={cn(s.poolItemsList, {
-                [s.poolItemsList_closed]: nonEmptyPositions.length > 0 && !isEmptyOpened,
+                [s.poolItemsList_closed]: !isEmptyOpened,
               })}
             >
               {emptyPositions.map((position) => (

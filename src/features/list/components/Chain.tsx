@@ -33,6 +33,23 @@ export const Chain = (props: ChainPropsType) => {
     <li className={s.chainItem}>
       <h4 className={s.chainTitle}>{name}</h4>
 
+      <div className={s.chainInfoRow}>
+        {/* TODO */}
+        <span className={s.chainLogo} />
+
+        <div className={s.chainHeaders}>
+          <span className={s.chainPart} style={{ width: '40%' }}>
+            Pool / Range
+          </span>
+          <span className={s.chainPart} style={{ width: '30%' }}>
+            TVL
+          </span>
+          <span className={s.chainPart} style={{ width: '30%' }}>
+            Fees
+          </span>
+        </div>
+      </div>
+
       <ul>
         {poolNames.map((poolName) => {
           const pool = pools[poolName]

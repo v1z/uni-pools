@@ -11,6 +11,9 @@ import LinkIcon from '../icons/link.svg'
 export const Item = (props: PositionType) => {
   const { url, range, liquidity, uncollectedFees, token0, token1, chain } = props
 
+  const liquidityText = getTokensToText({ token0, token1, chain, pair: liquidity })
+  const feesText = getTokensToText({ token0, token1, chain, pair: uncollectedFees })
+
   return (
     <div
       className={cn(s.position, {
@@ -18,28 +21,30 @@ export const Item = (props: PositionType) => {
         [s.position_active]: liquidity?.token0 && liquidity.token1,
       })}
     >
-      <div className={s.actionWrapper}>
-        <a href={url} target="_blank" className={s.actionControl} rel="noreferrer">
-          {url}
-          <LinkIcon className={s.actionIcon} />
-        </a>
-      </div>
+      <div className={s.actionWrapper} />
 
       <div className={s.content}>
-        <span className={s.part}>
+        <a href={url} target="_blank" className={s.part} style={{ width: '40%' }}>
           {getFormattedAmount(range.lower)}
           {' - '}
           {getFormattedAmount(range.upper)}
-        </span>
 
-        <span className={s.part}>{`${getTokensToText({ token0, token1, chain, pair: liquidity })}`}</span>
+          {/* <LinkIcon className={s.rangeIcon} /> */}
+        </a>
 
-        <span className={s.part}>{`${getTokensToText({
-          token0,
-          token1,
-          chain,
-          pair: uncollectedFees,
-        })}`}</span>
+        {!!liquidity && (
+          <>
+            <div className={s.part} style={{ width: '30%' }}>
+              <span>{liquidityText.part0}</span>
+              <span>{liquidityText.part1}</span>
+            </div>
+
+            <div className={s.part} style={{ width: '30%' }}>
+              <span>{feesText.part0}</span>
+              <span>{feesText.part1}</span>
+            </div>
+          </>
+        )}
       </div>
     </div>
   )
