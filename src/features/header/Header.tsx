@@ -26,9 +26,10 @@ export const Header = () => {
   const handleRequestFullfil = () => dispatch(pricesRequestStateChanged('fullfiled'))
 
   useEffect(() => {
-    const fetchPrices = async () => {
+    const fetchPrices = async (isFirstRun = false) => {
       try {
-        handleRequestInitiation()
+        // keep 'awaiting' status while first run
+        !isFirstRun && handleRequestInitiation()
 
         const prices = await useRequestTokenPrices()
 
@@ -40,7 +41,7 @@ export const Header = () => {
       }
     }
 
-    fetchPrices()
+    fetchPrices(true)
 
     const intervalId = setInterval(fetchPrices, INTERVAL_TIME_SECONDS * 1000)
 
@@ -66,7 +67,7 @@ export const Header = () => {
 
                 <span
                   className={cn(s.tokenPrice, {
-                    [s.tokenPrice_fetching]: requestStatus === 'fetching',
+                    [s.tokenPrice_fetching]: requestStatus === 'fetching' || requestStatus === 'awaiting',
                   })}
                 >
                   {priceText}

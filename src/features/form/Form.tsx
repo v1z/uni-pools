@@ -6,7 +6,7 @@ import {
   positionsRequestStageChanged,
   selectPositionsRequestStage,
 } from '../../store/slices/positionsSlice'
-import { selectPrices } from '../../store/slices/pricesSlice'
+import { selectPrices, selectPricesRequestStage } from '../../store/slices/pricesSlice'
 import { useAppDispatch, useAppSelector } from '../../store/store'
 
 import { useRequestPositions } from './hooks/useRequestPositions'
@@ -16,7 +16,8 @@ import s from './styles.css'
 
 export const Form = () => {
   const [userAddress, setUserAddress] = useState<string>('')
-  const status = useAppSelector(selectPositionsRequestStage)
+  const positionsStatus = useAppSelector(selectPositionsRequestStage)
+  const pricesStatus = useAppSelector(selectPricesRequestStage)
 
   const dispatch = useAppDispatch()
 
@@ -54,7 +55,8 @@ export const Form = () => {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => setUserAddress(e.target.value)
 
-  const isLoading = status === 'fetching'
+  // block UI while positions are fetching or prices are not loaded once (on start)
+  const isDisabled = positionsStatus === 'fetching' || pricesStatus === 'awaiting'
 
   return (
     <section className={s.root}>
@@ -72,9 +74,9 @@ export const Form = () => {
               placeholder="0x0000000000000000000000000000000000000000"
               onChange={handleInputChange}
               value={userAddress}
-              disabled={isLoading}
+              disabled={isDisabled}
               className={cn(s.input, {
-                [s.input_disabled]: isLoading,
+                [s.input_disabled]: isDisabled,
               })}
             />
           </div>
@@ -82,9 +84,9 @@ export const Form = () => {
           <button
             type="button"
             onClick={handleSubmit}
-            disabled={isLoading}
+            disabled={isDisabled}
             className={cn(s.button, {
-              [s.button_disabled]: isLoading,
+              [s.button_disabled]: isDisabled,
             })}
             tabIndex={0}
           >
@@ -93,7 +95,7 @@ export const Form = () => {
 
           <span
             className={cn(s.inputStatus, {
-              [s.inputStatus_visible]: isLoading,
+              [s.inputStatus_visible]: isDisabled,
             })}
           >
             LOADING DATA...

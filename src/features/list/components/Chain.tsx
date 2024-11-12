@@ -39,7 +39,7 @@ export const Chain = (props: ChainPropsType) => {
 
         <div className={s.chainHeaders}>
           <span className={s.chainPart} style={{ width: '40%' }}>
-            Pool / Range
+            Range
           </span>
           <span className={s.chainPart} style={{ width: '30%' }}>
             TVL
