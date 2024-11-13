@@ -1,5 +1,5 @@
 import type { PositionType, PriceRangeType, RawPositionType, SupportedChainsType, TokenPricesType, TokensPairType } from '../types'
-import {getTokenDecimal, getTokenSymbol, getTokenFixed, getTokenPrice} from '../../../shared/utils'
+import {getTokenDecimal, getTokenSymbol, getTokenFixed, getTokenPrice, getAPR} from '../../../shared/utils'
 
 // TODO: tests
 export const getFormattedPosition = (position: RawPositionType, prices: TokenPricesType): PositionType => {
@@ -7,6 +7,9 @@ export const getFormattedPosition = (position: RawPositionType, prices: TokenPri
 
   const token0 = t0.toLowerCase()
   const token1 = t1.toLowerCase()
+
+  const liquidity = getLiquidity({...position, token0, token1}, prices)
+  const fees = getUncollectedFees(position)
 
   return {
     token0,
@@ -17,8 +20,9 @@ export const getFormattedPosition = (position: RawPositionType, prices: TokenPri
     url: getPoolURL(position),
     range: getPriceRange({...position, token0, token1}),
     chain,
-    liquidity: getLiquidity({...position, token0, token1}, prices),
-    uncollectedFees: getUncollectedFees(position),
+    liquidity,
+    fees,
+    apr: getAPR({chain, token0, token1, prices, liquidity, fees}),
   }
 }
 

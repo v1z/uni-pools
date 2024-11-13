@@ -2,6 +2,7 @@ import React from 'react'
 
 import { SupportedChainsType } from '../../../types'
 import type { SortedByPoolType } from '../types'
+import { COLUMN_WIDTH } from './index'
 
 import { Pool } from './Pool'
 
@@ -38,14 +39,17 @@ export const Chain = (props: ChainPropsType) => {
         <span className={s.chainLogo} />
 
         <div className={s.chainHeaders}>
-          <span className={s.chainPart} style={{ width: '40%' }}>
+          <span className={s.chainPart} style={{ width: COLUMN_WIDTH['range'] }}>
             Range
           </span>
-          <span className={s.chainPart} style={{ width: '30%' }}>
+          <span className={s.chainPart} style={{ width: COLUMN_WIDTH['tvl'] }}>
             TVL
           </span>
-          <span className={s.chainPart} style={{ width: '30%' }}>
+          <span className={s.chainPart} style={{ width: COLUMN_WIDTH['fees'] }}>
             Fees
+          </span>
+          <span className={s.chainPart} style={{ width: COLUMN_WIDTH['apr'] }}>
+            Rate
           </span>
         </div>
       </div>

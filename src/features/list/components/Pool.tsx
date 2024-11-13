@@ -2,8 +2,11 @@ import React, { useState } from 'react'
 import cn from 'classnames'
 
 import type { PoolType } from '../types'
-import { getTokensToText } from '../utils'
-import { getFormattedAmount } from '../../../shared/utils'
+import { getTokensToText, getFormattedAPR } from '../utils'
+import { getFormattedAmount, getAPR } from '../../../shared/utils'
+import { useAppSelector } from '../../../store/store'
+import { selectPrices } from '../../../store/slices/pricesSlice'
+import { COLUMN_WIDTH } from './index'
 
 import { Item } from './Item'
 
@@ -16,6 +19,8 @@ type PoolPropsType = {
 
 export const Pool = (props: PoolPropsType) => {
   const { name, positions, fees, liquidity, range } = props
+
+  const prices = useAppSelector(selectPrices)
 
   const [isOpened, setIsOpened] = useState(!!liquidity && positions.length > 1)
   const [isEmptyOpened, setIsEmptyOpened] = useState(false)
@@ -35,6 +40,15 @@ export const Pool = (props: PoolPropsType) => {
   const liquidityText = getTokensToText({ token0, token1, chain, pair: liquidity })
   const feesText = getTokensToText({ token0, token1, chain, pair: fees })
 
+  const apr = getAPR({
+    chain,
+    token0,
+    token1,
+    liquidity,
+    fees,
+    prices,
+  })
+
   return (
     <>
       <div className={s.poolWrapper}>
@@ -51,7 +65,7 @@ export const Pool = (props: PoolPropsType) => {
         </div>
 
         <div className={s.content}>
-          <span className={s.part} style={{ width: '40%' }}>
+          <span className={s.part} style={{ width: COLUMN_WIDTH['range'] }}>
             {name}
             {range && (
               <>
@@ -64,17 +78,26 @@ export const Pool = (props: PoolPropsType) => {
             )}
           </span>
 
-          <span className={s.part} style={{ width: '30%' }}>
-            {/* {'Liquidity: '} */}
-            <span className={s.pairValue}>{liquidityText.part0}</span>
-            <span className={s.pairValue}>{liquidityText.part1}</span>
-          </span>
+          {!!liquidity && (
+            <>
+              <span className={s.part} style={{ width: COLUMN_WIDTH['tvl'] }}>
+                {/* {'Liquidity: '} */}
+                <span className={s.pairValue}>{liquidityText.part0}</span>
+                <span className={s.pairValue}>{liquidityText.part1}</span>
+              </span>
 
-          <span className={s.part} style={{ width: '30%' }}>
-            {/* {'Fees: '} */}
-            <span className={s.pairValue}>{feesText.part0}</span>
-            <span className={s.pairValue}>{feesText.part1}</span>
-          </span>
+              <span className={s.part} style={{ width: COLUMN_WIDTH['fees'] }}>
+                {/* {'Fees: '} */}
+                <span className={s.pairValue}>{feesText.part0}</span>
+                <span className={s.pairValue}>{feesText.part1}</span>
+              </span>
+
+              <span className={s.part} style={{ width: COLUMN_WIDTH['apr'] }}>
+                {/* {'Apr: '} */}
+                <span className={s.pairValue}>{getFormattedAPR(apr)}</span>
+              </span>
+            </>
+          )}
         </div>
       </div>
 

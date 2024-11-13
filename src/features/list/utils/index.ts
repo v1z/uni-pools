@@ -12,7 +12,7 @@ export const filterBySupportedTokens = (positions: PositionType[]): PositionType
 
 export const sortByPool = (positions: PositionType[]): SortedByPoolType => {
   return positions.reduce((acc, item) => {
-    const { chain, token0, token1, fee, liquidity, uncollectedFees } = item
+    const { chain, token0, token1, fee, liquidity, fees } = item
 
     const symbol0 = getTokenSymbol(chain, token0)
     const symbol1 = getTokenSymbol(chain, token1)
@@ -35,7 +35,7 @@ export const sortByPool = (positions: PositionType[]): SortedByPoolType => {
       ? acc[poolName]['fees']
       : undefined
 
-    const poolFees = addPairs(currentFees, uncollectedFees)
+    const poolFees = addPairs(currentFees, fees)
 
     const currentRange: PoolType['range'] = acc[poolName]
       ? acc[poolName]['range']
@@ -46,7 +46,15 @@ export const sortByPool = (positions: PositionType[]): SortedByPoolType => {
       item.liquidity ? item.range : undefined
     )
 
-    return { ...acc, [poolName]: {liquidity: poolLiquidity, fees: poolFees, range: poolRange, positions} }
+    return {
+      ...acc,
+      [poolName]: {
+        range: poolRange,
+        liquidity: poolLiquidity,
+        fees: poolFees,
+        positions,
+      }
+    }
   }, {} as SortedByPoolType)
 }
 
@@ -132,3 +140,11 @@ export const getPoolRange = (range0: PoolType['range'], range1: PoolType['range'
     upper: Math.max(range0.upper, range1.upper)
   }
 }
+
+// TODO: tests
+export const getFormattedAPR = (apr: PositionType['apr']): string => {
+  if (!apr) return ''
+
+  return `${apr.toFixed(2)} %`
+}
+

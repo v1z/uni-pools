@@ -1,4 +1,4 @@
-import type { SupportedChainsType, TokenPricesType, SupportedTickersType, SupportedTockensType, TokensPairType } from '../../types'
+import type { SupportedChainsType, TokenPricesType, SupportedTickersType, SupportedTockensType, TokensPairType, PositionType } from '../../types'
 
 import { CONTRACTS } from './tokenContracts'
 
@@ -51,6 +51,10 @@ const TOKENS_MAP: Record<SupportedTockensType, SupportedTickersType> = {
   'USDC': 'USD'
 }
 
+export const getTokenUSDValue = (token: SupportedTockensType, prices: TokenPricesType): number => {
+  return prices[TOKENS_MAP[token]] || 0
+}
+
 // TODO: tests
 export const getTokenPrice = (token0: SupportedTockensType, token1: SupportedTockensType, prices: TokenPricesType): number | undefined => {
   const usdPrice0 = prices[TOKENS_MAP[token0]]
@@ -71,4 +75,28 @@ export const addPairs = (pairCurr: TokensPairType, pairNew: TokensPairType): Tok
     token0: pairCurr.token0 + pairNew.token0,
     token1: pairCurr.token1 + pairNew.token1,
   }
+}
+
+export const getAPR = ({chain, token0, token1, prices, liquidity, fees}: {
+  chain: PositionType['chain']
+  token0: PositionType['token0']
+  token1: PositionType['token1']
+  prices: TokenPricesType
+  liquidity: TokensPairType
+  fees: TokensPairType
+}): PositionType['apr'] => {
+  if (!liquidity || !fees) {
+    return undefined
+  }
+
+  const symbol0 = getTokenSymbol(chain, token0)
+  const symbol1 = getTokenSymbol(chain, token1)
+
+  const usdPrice0 = getTokenUSDValue(symbol0, prices)
+  const usdPrice1 = getTokenUSDValue(symbol1, prices)
+
+  const liquidityUSDValue = liquidity.token0 * usdPrice0 + liquidity.token1 * usdPrice1
+  const feesUSDValue = fees.token0 * usdPrice0 + fees.token1 * usdPrice1
+
+  return feesUSDValue / liquidityUSDValue * 100
 }

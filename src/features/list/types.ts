@@ -1,9 +1,9 @@
 import type {PositionType, TokensPairType, SupportedChainsType, PriceRangeType} from '../../types'
 
 export type PoolType = {
+  range: PriceRangeType | undefined
   liquidity: TokensPairType
   fees: TokensPairType
-  range: PriceRangeType | undefined
   positions: PositionType[]
 }
 

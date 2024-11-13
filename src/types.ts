@@ -34,5 +34,7 @@ export type PositionType = {
 
   chain: SupportedChainsType
 
-  uncollectedFees: TokensPairType
+  fees: TokensPairType
+
+  apr: number | undefined
 }
