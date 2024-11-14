@@ -20,7 +20,12 @@ export const List = () => {
   }
 
   // TODO
-  if (requestStatus === 'failed') return <div>failed!</div>
+  if (requestStatus === 'failed')
+    return (
+      <section className={s.root}>
+        <h3 className={s.failedTitle}>Oops! Something gone wrong, please try again</h3>
+      </section>
+    )
 
   const sortedPositions = sortPositions(positions)
   const chains = Object.keys(sortedPositions)

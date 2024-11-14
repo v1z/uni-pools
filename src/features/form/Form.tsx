@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
+import { useForm, SubmitHandler } from 'react-hook-form'
 import cn from 'classnames'
 
 import {
@@ -14,30 +15,32 @@ import { getFormattedPosition } from './utils'
 
 import s from './styles.css'
 
+type Inputs = {
+  userAddress: string
+}
+
 export const Form = () => {
-  const [userAddress, setUserAddress] = useState<string>('')
   const positionsStatus = useAppSelector(selectPositionsRequestStage)
   const pricesStatus = useAppSelector(selectPricesRequestStage)
 
   const dispatch = useAppDispatch()
 
-  const handleRequestClick = () => dispatch(positionsRequestStageChanged('fetching'))
-  const handleRequestError = () => dispatch(positionsRequestStageChanged('failed'))
-  const handleRequestFullfil = () => dispatch(positionsRequestStageChanged('fullfiled'))
-
-  // retrive the last user address from localStorage for better UX
-  useEffect(() => {
-    const savedAddress = localStorage.getItem('userAddress')
-
-    !!savedAddress && setUserAddress(savedAddress)
-  }, [])
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<Inputs>({
+    defaultValues: {
+      // retrive the last user address from localStorage for better UX
+      userAddress: localStorage.getItem('userAddress') || undefined,
+    },
+  })
 
   const prices = useAppSelector(selectPrices)
 
-  // TODO: add validation by regex
-  const handleSubmit = () => {
+  const onSubmit: SubmitHandler<Inputs> = ({ userAddress }) => {
     // set form to loading styles
-    handleRequestClick()
+    dispatch(positionsRequestStageChanged('fetching'))
 
     // save the userAddress for later calls
     localStorage.setItem('userAddress', userAddress)
@@ -47,20 +50,17 @@ export const Form = () => {
         const formattedPositions = rawPositions.map((pos) => getFormattedPosition(pos, prices))
 
         dispatch(positionsSettled(formattedPositions))
-
-        handleRequestFullfil()
+        dispatch(positionsRequestStageChanged('fullfiled'))
       })
-      .catch(() => handleRequestError())
+      .catch(() => dispatch(positionsRequestStageChanged('failed')))
   }
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => setUserAddress(e.target.value)
 
   // block UI while positions are fetching or prices are not loaded once (on start)
   const isDisabled = positionsStatus === 'fetching' || pricesStatus === 'awaiting'
 
   return (
     <section className={s.root}>
-      <form className={s.form}>
+      <form className={s.form} onSubmit={handleSubmit(onSubmit)}>
         <h4 className={s.title}>WHY</h4>
 
         <p className={s.subtitle}>
@@ -71,19 +71,25 @@ export const Form = () => {
           <div className={s.inputWrapper}>
             <input
               type="text"
-              placeholder="0x0000000000000000000000000000000000000000"
-              onChange={handleInputChange}
-              value={userAddress}
+              placeholder="0xb1E87889b4bde8737c231810121Bc8a12A36C088"
               disabled={isDisabled}
               className={cn(s.input, {
                 [s.input_disabled]: isDisabled,
+                [s.input_hasError]: !!errors.userAddress,
               })}
+              {...register('userAddress', { required: true, pattern: /^0x[\w\d]{40}$/ })}
             />
+
+            {!!errors.userAddress && (
+              <span className={s.inputError}>
+                {errors.userAddress?.type === 'required' && 'Please fill in the address'}
+                {errors.userAddress?.type === 'pattern' && 'Please use EVM-compatible address'}
+              </span>
+            )}
           </div>
 
           <button
-            type="button"
-            onClick={handleSubmit}
+            type="submit"
             disabled={isDisabled}
             className={cn(s.button, {
               [s.button_disabled]: isDisabled,
