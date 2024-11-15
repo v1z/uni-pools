@@ -19,13 +19,23 @@ export const List = () => {
     return <Skeletons />
   }
 
-  // TODO
-  if (requestStatus === 'failed')
+  if (requestStatus === 'failed') {
     return (
       <section className={s.root}>
         <h3 className={s.failedTitle}>Oops! Something gone wrong, please try again</h3>
       </section>
     )
+  }
+
+  if (!positions) {
+    return (
+      <section className={s.root}>
+        <h3 className={s.failedTitle}>
+          There are no&nbsp;positions on&nbsp;supported chains with supported tokens for the provided wallet address
+        </h3>
+      </section>
+    )
+  }
 
   const sortedPositions = sortPositions(positions)
   const chains = Object.keys(sortedPositions)
