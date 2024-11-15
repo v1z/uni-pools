@@ -13,7 +13,7 @@ export const List = () => {
   const positions = useAppSelector(selectPositions)
   const requestStatus = useAppSelector(selectPositionsRequestStage)
 
-  if (requestStatus === 'awaiting' || !positions) return null
+  if (requestStatus === 'awaiting') return null
 
   if (requestStatus === 'fetching') {
     return <Skeletons />
@@ -26,6 +26,8 @@ export const List = () => {
       </section>
     )
   }
+
+  if (!positions) return null
 
   if (positions.length === 0) {
     return (
