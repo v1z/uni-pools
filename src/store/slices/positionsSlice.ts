@@ -7,12 +7,12 @@ import type { RootState } from '../store'
 export type PositionsRequestStageType = 'awaiting' | 'fetching' | 'failed' | 'fullfiled'
 
 type PositionsState = {
-  value: PositionType[]
+  value: PositionType[] | undefined
   requestStage: PositionsRequestStageType
 }
 
 const initialState: PositionsState = {
-  value: [],
+  value: undefined,
   requestStage: 'awaiting'
 }
 
